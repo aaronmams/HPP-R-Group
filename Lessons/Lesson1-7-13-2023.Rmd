@@ -1,0 +1,346 @@
+---
+title: "Lesson1-7-13-2023"
+author: "Aaron Mamula"
+date: "6/21/2023"
+output: html_document
+---
+
+
+# Purpose
+
+The purpose of this lesson is to familiarize everyone with the R Software. The code provided here will allow you all to practice three fundamental tasks:
+
+1. practice running code from the interactive console
+2. practice importing your own data from an external source
+3. practice bundling code (a script) to achieve a reproducible output
+
+# Instructions
+
+The shaded blocks below that look like this:
+
+```{r eval=F}
+the stuff in here is code
+```
+
+contain R code. I recommend you copy these bits of code and paste them into your R console to see what they are doing.
+
+
+# Problem
+
+We're going to consider the toy problem of summarizing different flavors of hydrologic data on river flows. 
+
+
+## Problem Iteration #1
+
+For this Example it may be useful for you to refer to the [R Manual, specifically page 7](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf) on simple data structures.
+
+Let's suppose we made several measurements of stream flow for a particular stream and we recorded them in a notebook. The measurement values are all discharge at a particular stream gauge measured in cubic feet per second (cfs). I like to try to give things a real life flavor when I can so I'm going to suppose that I took these measurements at Soquel Creek which is a seasonal steelhead supporting creek near my house. Here's an embedded google map of the approximate location of Soquel Creek:
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d99009.75704604079!2d-121.9755311588595!3d37.026480933126415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808e395494be1077%3A0xa538a07ec202f1ca!2sSoquel%20Creek!5e1!3m2!1sen!2sus!4v1656349014166!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+
+The measurements I'm pretending we took are actual flows from Soquel Creek that took from the US Geologic Survey's searchable database of stream flow measurements:
+
+https://waterdata.usgs.gov/nwis/dv/?site_no=11160000&agency_cd=USGS&amp;referred_module=sw
+
+
+Suppose those measurements were the following:
+
+* on 6/1/2022 we recorded 2.68 cfs 
+* on 6/6/2022 we recorded 3.10 cfs 
+* on 6/10/2022 we recorded 1.92 cfs 
+* on 6/15/2022 we recorded 1.36 cfs 
+* on 6/20/2022 we recorded 1.35 cfs
+* on 6/25/2022 we recorded 1.06 cfs
+
+Now we would like to produce some basic summaries of the flow data in R.
+
+### Syntax Example: Create a vector of numeric values
+
+```{r}
+flows <- c(2.68,3.10,1.92,1.36,1.35,1.06)
+
+```
+
+This single line of code takes 6 objects (the individual flow measurement), combines them into a data structure called a vector, and assigns that vector to an object that we named "flows." 
+
+That's a lot of jargon for 1 line of code so let's break it down a little further:
+
+In the example above we have 3 pieces of syntax that are important to understand. I'm going to break these down in reverse order to how they appear:
+
+1. The ```c(2.68,3.10,1.92,1.36,1.35,1.06)``` is R's syntax for combining or concatenating objects. "Object" is a general term for things our programming language understands. Objects can be very simple:
+
+* numbers (e.g. 1,2,3)
+* letters (e.g. a, b, c)
+* words ("dog","cat")
+
+and objects can also be more complicated:
+
+* groups of individual numbers can be combined to make a numeric vector
+* groups of words can be combined to make a character vector
+* groups of vectors can combined to make a data frame or list
+
+At this point it's probably not helpful for you to overthink the syntax `c(...)`. Just try to remember that this notation is what we use to make groups of "things."
+
+
+2. The ```<-``` symbol. This syntax is created using the ```<``` sign and the ```-``` sign. This is simply R's way of doing assignment. Depending on who you talk to this is either an esoteric concept or something so pivotal that misunderstanding it will cause your computer to blow up. I claim neither side of this debate. I'm just here to help you understand the R world as it is, not as I believe it should be. To that end:
+
+In programming, the ```=``` sign is often reserved for mathematical identities. For example the statement ```2+2=4``` is a mathematical identity. 
+
+In this case we are defining to object called "flows" to equal the concatenation of several flow measurements. There is underlying axomatic reason for doing this. So we would like a way to do this assignment without conceptually mixing it up with an immutable mathematical reality. To do this we use the assignment operator. Note that the assignment operator will work even if you try to assign an object to a value that doesn't make sense to you. For example, note what happens when do the following:
+
+```{r}
+a <- "b"
+a
+```
+
+```{r}
+fred <- "john"
+fred
+```
+
+The point here is that assignment is just what it sounds like, you are assigning a value to an object. As long as you use the proper syntax, your computer will allow you to assign a value to an object that may or may not make sense to your brain. 
+
+This is useful property for a programming language to have even it sounds somewhat ridiculous right now.
+
+3. The ```flows``` part is the final piece of the assignment operation. ```flows``` is a just a name that I have chosen to hold the values 2.68,3.10,1.92,1.36,1.35, and 1.06. I could have chosen ```x``` or ```y``` or ```soquel_creek```. 
+
+At this point it may be helpful to read [What are Valid Names?](https://cran.r-project.org/doc/FAQ/R-FAQ.html#What-are-valid-names_003f) from the R Programming Manual. 
+
+Also, by copying the syntax below into your R Console you can see a list of words that R will not allow you to use for object assignment because R already attaches certain functionality to these words:
+
+```{r,eval=F}
+?make.names
+
+```
+
+
+Finally, what happens if we do accidentally try to use a reserved word as an object name in our code?
+
+```{r, eval=F}
+if <- 2.8
+
+```
+
+we get an error that says ```Error: unexpected assignment in "if <- ". So R is telling us to name our object something else.
+
+
+### Syntax Example: Summarize the measurements
+
+
+So now that we have created a vector containing our streamflow measurements, let's do some stuff with it:
+
+1. Describe the object:
+
+```{r}
+str(flows)
+
+```
+
+There are many ways to get information about objects in your R environment. The ```str()``` function is one of them. ```str()``` stands for "structure" and the purpose of this function is to return some information about the structure of the object that you feed it. 
+
+This is probably a good time to pause and review some important terminology:
+
+* ```str()``` is a built-in function. It accepts an input and produces some output. The output it produces is summary information about the input that was supplied
+
+* ```flows``` is an object. The object has certain properties. In this case the most notable property is that it is a collection of 6 numbers. If we forget what properties an object in our workspace has, we use the ```str()``` function to find out.
+
+2. Get the minimum streamflow value in our sequence:
+
+```{r}
+min(flows)
+
+```
+
+3. Get the max value for streamflow in our sequence. 
+
+```{r}
+max(flows)
+
+```
+
+
+Just to deepen our understanding of what's going on let's try this a few other ways:
+
+
+Here, I'm demonstrating that we can apply functions to other function. Recall that the ```c()``` operator was a function for combining things. The ```max()``` function identifies the maximum value of the things that are being combined by the ```c()``` function:
+```{r}
+max(c(2.68,3.10,1.92,1.36,1.35,1.06))
+
+```
+The ```max()``` function will work the same without the ```c()``` function:
+```{r}
+max(2.68,3.10,1.92,1.36,1.35,1.06)
+
+```
+4. What if we want the standard deviation but don't know exactly how to ask for it? R's internal help menu may not be a huge help here because it's meant to give you information on known sytax and methods. However, the open source nature of R means that google searching can often be a fruitful avenue for discovery. 
+
+In this case a google search for ```R standard deviation``` gets me pretty quickly to the [relevant part of R's help documentation](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/sd).
+
+```{r}
+sd(flows)
+
+```
+
+## Problem Iteration #2
+
+Here we use the Nile River data set that is bundled with R. This is a quick introduction to the concept of built-in data sets. These are really helpful for practicing coding because they can loaded quickly and are well documented so it's easy to find out what properties the data have.
+
+1. First, how do I find out what data sets already exist in the R software? Well, [here is a list of them all](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html) which I find, unsurprisingly, by googling ```R datasets```.
+
+2. How do I load a dataset? Like this:
+
+```{r}
+data(Nile)
+
+```
+
+3. I did that but nothing happened. What now? Here are a few follow-up actions that might be helpful:
+
+If you're not sure whether you did it right and want to confirm that you do in fact have access to the Nile River Flow dataset you can check your workspace:
+
+```{r}
+ls()
+
+```
+
+This function gives you a list of all the objects in your workspace. If there is an object called ```Nile``` in the function output, that means the object ```Nile``` is in your workspace.
+
+If you are convinced that the ```Nile``` dataset is in your workspace but want to know more about it, try the ```str()``` function:
+
+```{r}
+str(Nile)
+
+```
+This output tells us that the ```Nile``` object is a time-series vector with 100 different numeric values.
+
+
+4. Finally, we often want to "see" our data which usually involves displaying observations in some 2-dimensional space. The simplest R function for this is ```plot()```:
+
+```{r}
+plot(Nile)
+```
+
+
+## Problem Iteration #3
+
+Here we read in our own dataset and create a script to do things with it. This skill (working with our own primary data in R) is the thing that I see uniting all scientists at my duty station whether they are Oceanographers, Biologists, Economists, or Ecologists.  
+
+For this application I used the same USGS data for Soquel Creek but I downloaded daily stream discharge measurements from 1990 to June 2023.
+
+
+### Step 1: Get the Data
+
+The first step in this process is to go into the [Data folder in the google drive](https://drive.google.com/drive/folders/14lwS7pfRmr3eEpAlmFCFLfcbFWEDYF7w?usp=drive_link) and copy the ```SoquelCreek.csv``` file somewhere to your computer. 
+
+### Step 2: Bring the Data into R
+
+To access the data file ```SoquelCreek.csv``` within R you need to know two things:
+
+1. You need to know where this file lives on your computer. I saved this file to my Desktop so the file's location on my environment is ```C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data/SoquelCreek.csv```. This will be different for you depending on where you saved the file and depending on what operating system you use. The easiest way to figure out where your ```SoquelCreek.csv``` file lives is to navigate to the file in your file browser, right click on it, then select "properties."
+
+2. It is also helpful to know what directories your R instance looks for external files. This is not critical to the task at hand but it is good to understand. 
+
+Each R instance has a "working directory." This is the directory that R will look by default any time you supply code that requires R to look for something outside the current workspace. ```getwd()``` is a function that tells you what R's current working directory is:
+
+```{r}
+getwd()
+
+```
+
+Now that we know where the file we want is, and we know what directory R wants to look for files in, we can bring our ```SoquelCreek.csv``` data into the workspace:
+
+
+```{r}
+soquel <- read.csv(file="C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data/SoquelCreek.csv")
+
+```
+
+
+### Step 3: Explore the Data
+
+Working with data in Excel generally offers you the ability to "see" your data. This can be very comforting. Working with data in a programmatic environment like R has many, many, many advantages over Excel...but it can be somewhat disorienting since it can be difficult to "see" the data.
+
+Our data are too large to reasonably view with our eyes, so we need to use various summary functions to get an understanding of the structure and properties of the data.
+
+We can again use the ```str()``` function to obtain important information about the object ```soquel```.
+
+```{r}
+str(soquel)
+```
+
+In this case, the ```str()``` function tells us that the object ```soquel``` is a ```data frame``` with 12,054 observations (rows) and 4 variable (columns). Additionally, ```str()``` tells us what kind of information is stored in each of the columns.
+
+
+A function for summarizing data frames that I often find a bit more useful than the ```str()``` function is ```head()```
+
+```head()``` is a function that will print the first several rows of our rectangular data frame.
+
+```{r}
+head(soquel)
+```
+
+# More on Working Directories
+
+You may have noticed that in Step #1 above I went through an example of printing the current working directory. You may have also noticed that the information in that example was not utilized when we actually brought the external data into the R workspace. Here I'll show you an alternative way to bring external data into your R workspace. 
+
+Although it is not strictly necessary to have multiple ways to do the same thing, I think it is helpful to understand multiple ways to do things because it strengthens your understanding of how the system behaves.
+
+In Step #2 above I imported the Soquel Creek Data by using an absolute file path:
+
+```{r, eval=F}
+soquel <- read.csv(file="C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data/SoquelCreek.csv")
+
+```
+
+
+I did this because R's working directory:
+
+```{r}
+getwd()
+```
+
+was different from the directory where the file is stored, ```C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data```.
+
+An alternative way to do this would be to change R's working directory to be the directory where the file is stored:
+
+```{r}
+setwd("C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data")
+soquel2 <- read.csv("SoquelCreek.csv")
+str(soquel2)
+```
+
+Because I changed the working directory, I was able to use the ```read.csv()``` function and just give it the file name...instead of the entire file path.
+
+
+# Make A Script
+
+This part will have to be demonstrated during class time or maybe office hours but I can narrate the basics here.
+
+We're going to copy the code below to a text file and save it. 
+
+```{r eval=F}
+
+setwd("C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data")
+soquel_data <- read.csv("SoquelCreek.csv")
+
+# fix the column names
+names(soquel_data) <- c("Source","SiteID","Date","Level")
+
+# change the "Date" to a date class object
+soquel_data$Date <- as.Date(soquel_data$Date,format="%m/%d/%Y")
+str(soquel_data)
+```
+
+
+The reason for doing things this way is to make any analysis we might do with these data reproducible. Reproducability is important for two reasons:
+
+
+1. It ensures that we have internal consistency in our own analysis. Stated more simply, it gives me a way to track all the changes I might make to the data in a way that spreadsheets can't.
+
+2. It makes it easy for us to share data and analysis with other people because they can easy retrace all the steps we've taken to arrive at our results.
+
+
+
+
+

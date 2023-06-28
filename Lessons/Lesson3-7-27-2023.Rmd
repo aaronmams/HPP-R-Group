@@ -1,0 +1,108 @@
+---
+title: "Lesson3-7-27-2023"
+author: "Aaron Mamula"
+date: "2023-06-27"
+output: html_document
+---
+
+## Graphic with ggplot2
+
+The fact that I'm introducing the ```ggplot2``` package for graphics before spending any meaningful time on regular base-R graphics will probably be controversial.
+
+The reason I'm doing it this way is that (i) we don't really have time to give significant attention to both base-R graphics and ```ggplot2``` graphics and (ii) I don't use base-R for data visuals. I can't teach what I don't use.
+
+There is a great scholarly paper by Hadley Wickham called *A Layered Grammar of Graphics* which is the foundation for the ```ggplot2``` package. The paper was published in the Journal *The Journal of Computational and Graphical Statistics* and is probably a little too dense for me to recommend here. I will instead recommend [this summary](https://cfss.uchicago.edu/notes/grammar-of-graphics/) of the paper. 
+
+
+Here is a quick walk-though of the basic anatomy of a plot using the ```ggplot2``` package and the ```SoquelCreek.csv``` dataset. 
+
+## Set Up
+
+First install the ```ggplot2``` package if you have not already done so:
+  
+```{r eval=F}
+
+install.packages("ggplot2")
+```
+
+Next, make sure the package is available in your current workspace:
+  
+```{r}
+require(ggplot2)
+require(here)
+require(dplyr)
+```
+
+Next, make sure you have the Soquel Creek Flow Data. You will need to download these data from the google drive and store locally somewhere on your computer.
+
+Next, make sure these data are available in the workspace. NOTE: you will need to change the file location below to match wherever you have stored the data.
+
+```{r}
+soquel <- read.csv(file=here("Data/SoquelCreek.csv"))
+
+```
+
+These data are time ordered but the time variable is not a data class object. I know, that sounds a little jargony but it's also true and it affects our ability to plot the data understandably so we need to fix it:
+
+```{r}
+soquel$Date <- as.Date(soquel$Date,format="%m/%d/%Y")
+
+```
+
+## Plotting Basics
+
+Now we can start plotting these data. The function ```ggplot()``` is the backbone of all ggplot2 graphics. The function accepts many arguments and can be decorated with many layers and option. Here is the minimum amount of information you need in order to make a line graph with ```ggplot()```:
+
+1. ```data``` - when you tell the ```ggplot()``` function what data set you want to plot, it uses this information to establish the boundaries of the plot space
+
+2. ```aesthetic``` this establishes the relationship between variables in the data set that you want to plot
+
+3. ```geometry``` this tells ```ggplot()``` what kind of plot you want to make.
+
+Here, I'll break these down into three steps:
+  
+  
+```{r}
+ggplot(data=soquel)
+
+```
+
+If you run the code above you'll see that nothing has happened. But also note that you (hopefully) did not get an error message. This is because the plot space has been established...but we haven't told R to put anything in that space yet.
+
+```{r}
+ggplot(data=soquel,aes(x=Date,y=Discharge_cfs))
+
+```
+This time R produces some output. Namely, a blank plot. Because we told it what variable we want to plot, it has set up a blank plot space to accomodate the values in those two columns.
+
+Finally,
+
+```{r}
+ggplot(data=soquel,aes(x=Date,y=Discharge_cfs)) + geom_line()
+
+```
+
+
+Adding a geometry tells R what kind of plot we want to make. In this case ```geom_line()``` tells it to make a line graph.
+
+## Some Interesting Extensions
+
+Our data are large and inherantly seasonal. One way we might want to visualize the seasonal patterns of stream flow might be with a boxplot. Here is an example:
+
+```{r}
+# Create a month variable using dplyr syntax
+soquel <- soquel %>% mutate(month=as.numeric(format(Date,"%m")))
+
+# Create a boxplot organized by month
+ggplot(data=soquel,aes(x=factor(month),y=log(Discharge_cfs))) + geom_boxplot() + xlab("Month")
+```
+
+A couple things to note here:
+
+1. R allows us to nest operations. 
+
+    * the syntax `x=factor(month)` is using the `factor()` method to convert the month variable from numeric to a factor for the purposes of plotting
+    * the syntax `y=log(Discharge_cfs)` is using the `log()` transform to adjust the scale of the y-axis values.
+
+2. Using the `ggplot()` package we can label our plot axes using the syntax `xlab()` and `ylab()`
+
