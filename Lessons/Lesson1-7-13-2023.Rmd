@@ -5,6 +5,12 @@ date: "6/21/2023"
 output: html_document
 ---
 
+# Resources
+
+* [YouTube Video on downloading and installing R and R Studio ](https://www.youtube.com/watch?v=TFGYlKvQEQ4)
+* [A tutorial I wrote for another class on data types and structures in R](https://github.com/aaronmams/rHD-Data-Wrangling/blob/master/Data-Types-and-Structures.Rmd)
+
+    ** It's kind of long but it has lots of code that you can use to familiarize yourself with data structures in R. It's also formatted as an R Markdown file which may be an unfamiliar file type to some of you at this point.
 
 # Purpose
 
@@ -186,7 +192,7 @@ sd(flows)
 
 Here we use the Nile River data set that is bundled with R. This is a quick introduction to the concept of built-in data sets. These are really helpful for practicing coding because they can loaded quickly and are well documented so it's easy to find out what properties the data have.
 
-1. First, how do I find out what data sets already exist in the R software? Well, [here is a list of them all](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html) which I find, unsurprisingly, by googling ```R datasets```.
+1. First, how do I find out what data sets already exist in the R software? Well, [here is a list of them all](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html) which I found, unsurprisingly, by googling ```R datasets```.
 
 2. How do I load a dataset? Like this:
 
@@ -252,7 +258,7 @@ Now that we know where the file we want is, and we know what directory R wants t
 
 
 ```{r}
-soquel <- read.csv(file="C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data/SoquelCreek.csv")
+soquel <- read.csv(file="C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data/SoquelCreek.csv")
 
 ```
 
@@ -289,7 +295,7 @@ Although it is not strictly necessary to have multiple ways to do the same thing
 In Step #2 above I imported the Soquel Creek Data by using an absolute file path:
 
 ```{r, eval=F}
-soquel <- read.csv(file="C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data/SoquelCreek.csv")
+soquel <- read.csv(file="C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data/SoquelCreek.csv")
 
 ```
 
@@ -300,12 +306,12 @@ I did this because R's working directory:
 getwd()
 ```
 
-was different from the directory where the file is stored, ```C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data```.
+was different from the directory where the file is stored, ```C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data```.
 
 An alternative way to do this would be to change R's working directory to be the directory where the file is stored:
 
 ```{r}
-setwd("C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data")
+setwd("C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data")
 soquel2 <- read.csv("SoquelCreek.csv")
 str(soquel2)
 ```
@@ -321,7 +327,7 @@ We're going to copy the code below to a text file and save it.
 
 ```{r eval=F}
 
-setwd("C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data")
+setwd("C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data")
 soquel_data <- read.csv("SoquelCreek.csv")
 
 # fix the column names

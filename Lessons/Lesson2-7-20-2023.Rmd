@@ -5,8 +5,12 @@ date: "6/22/2023"
 output: html_document
 ---
 
+# 1. Resources
 
-# Objectives:
+* [Software Carpentry Module on R and R Studio ](https://swcarpentry.github.io/r-novice-gapminder/01-rstudio-intro.html)
+* [Some reading on packages and libraries](https://hbctraining.github.io/Intro-to-R-flipped/lessons/04_introR_packages.html)
+
+# 2. Objectives:
 
 1. Create an R Studio Project
     
@@ -14,93 +18,10 @@ output: html_document
     
     B. populate the project with some R code
 
-2. Use R Studio to replicate the SoquelCreek-Analysis
-
-# Lesson Background and Narrative
-
-This lesson deals with the *WHY* of learning R. Specifically, this lesson focuses on why many scientists that I know are enthusiastic about R:
-
-<center>**REPRODUCABLE RESEARCH**</center>
-
-<center><img src="https://imgs.xkcd.com/comics/the_difference.png"></center>
-
-Scientific results need to be reproducible
-
-1. we need to know that results aren't due to basic mistakes (typos, etc.)
-
-    * in order to know this, others need to understand the details of what you did.
-
-2. we often would like to know whether results can be applied broadly or if they only apply in some very limited circumstances
-
-In both of these cases we need to be able to provide other researchers with our analysis and dependencies so that they can try to replicate our results.
-
-# How do R and R Studio help with this?
-
-R is a programming language. Using R allows you to record the steps of your analysis in a way that preserves everything you've done. 
-
-R Studio is a software tool that organizes your R code and dependencies (data files for example) so that it can be easily shared with others that might seek to replicate your analysis. 
+2. Use R Studio to replicate the Soquel Creek Flow Analysis
 
 
-# An Example
-
-Principals of good science dictate that we follow a well-defined and consistent path. While there are many flow-chart type versions of the scientific method I would like to propose the following:
-
-Hypothesis --> Methods --> Data Collection --> Analysis --> Results --> Conclusions
-
-**Hypothesis**: define the primary research question
-
-**Methods**: determine under what conditions will we say this hypothesis is supported by the evidence
-
-**Data**: what data are necessary/appropriate given the research question and proposed methods
-
-**Analysis**: apply appropriate techniques as defined by **Methods** 
-
-**Results**: report the results of the analysis
-
-**Conclusions**: determine whether the hypothesis is supported by the available evidence
-
-In observational studies such as those commonly undertaken by economists and social scientists, the data are often fixed and research questions are often conditional on available data.
-
-## Experiment 1
-
-**Hypothesis**: houses located closer to a landfill are worth less than houses located further away from the landfill
-
-**Methods**: we propose to measure the value of homes in 3 distinct distance bands from a landfill: 
-
-    * homes located less than 1 mile from a landfill
-    
-    * homes located from 1 to 2 miles from a landfill
-    
-    * homes located more than 2 miles from a landfill
-    
-if the average home value increases as we move further from the landfill, we will say that there is empirical support for our hypothesis
-
-**Data**: collect 
-
-
-
-
-
-
-Potential Problem #1: If any of our many data massaging activities alters the source data, it will be impossible (or at least very costly) to 'start over' if we decide that we want to try another approach
-
-Solution: If our source data is treated as immutable, and all of our operations are preserved in code, then it's easy to make alterations to the analysis; we just need to change the code.
-
-Potential Problem #2: if all of our various operations:
-
-* deriving a price per square foot value
-* constructing average price for different distance bands
-* subsetting data to include only certain observations
-
-are done with Excel cell formulas or via point-and-click operations, there will be no reliable record of exactly how we did what we did. 
-
-Solution: if our data manipulations are memorialized in code and saved in a text document then we will always have a reference for exactly what we did.
-
-
-<img src="C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/repres-flow.png">
-
-
-## Exercise 1: Create a Project
+# 3. Exercise 1: Create a Project
 
 
 1. In RStudio: File --> New Project --> New Directory --> New Project
@@ -116,7 +37,7 @@ stream_data$Date <- as.Date(stream_data$Date,format="%m/%d/%Y")
 
 ```
 
-## Exercise 2: Use R Studio to Replicate an Analysis
+# 4. Exercise 2: Use R Studio to Replicate an Analysis
 
 1. Go to the [HPP-2023-RepRes](https://drive.google.com/drive/folders/164ikcxKNUtzSiatY1jK0fA-nab6QpGmb?usp=drive_link) directory in Google Drive
 2. Download the entire directory and save it to a local directory (or just let it linger in your "Downloads" directory)
@@ -133,143 +54,99 @@ The R script in `code.R` does a few very simple things:
 
 The purpose of this exercise is to illustrate how R Studio Projects promote reproducability. By packaging everything (code + data) into an R Studio Project, I enable others to reproduce my analysis exactly as intended without lots of extra steps and roadblocks. 
 
-# RStudio Projects
+# 5. Lesson Background and Narrative
 
-[Here is a youtube video](https://youtu.be/bmUwgpqLVSw) that I made for another class on how to create a new project in RStudio. The audio is poor and it's longer than it needs to be but if you have 8 minutes to spare, bump the playback speed up to 1.5 (because I'm a slow talker) and it will show you how to create a new project.
+This lesson deals with the *WHY* of learning R. Specifically, this lesson focuses on why many scientists that I know are enthusiastic about R:
 
-There are many good reasons to organize your work in projects. You can read a more thorough discussion the advantages of organizing work as project [in this Software Carpentry Module](https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/index.html). I'm not qualified to talk about all the magnificent ways that RStudio Projects will change your lives, I'm only really qualified to discuss why I find them advantageous:
+<center>**REPRODUCABLE RESEARCH**</center>
 
-1. Organizing work in projects makes it self-contained which makes it easily reproducible and shareable.
+<center><img src="https://imgs.xkcd.com/comics/the_difference.png"></center>
 
+Scientific results need to be reproducible
 
-Let's try an example here:
+* we need to know that results aren't due to basic mistakes (typos, etc.)
 
-* navigate to [the Github Repository for this HPP R Club](https://github.com/aaronmams/HPP-R-Group-2022)
-* click the green button that says "Code"
-* click "download Zip"
-* Create an RStudio Project
-* use your OS file browser to locate the downloaded zip file, move it to some location on your computer, and unzip the file
-* move the two unzipped resources "Weekly-Lessons" and "data" into your RStudio project
+    * in order to know this, others need to understand the details of what you did.<br><br>
+    
+* we often would like to know whether results can be applied broadly or if they only apply in some very limited circumstances
 
-## Bad Workflow Example
+In both of these cases we need to be able to provide other researchers with our analysis and dependencies so that they can try to replicate our results.
 
-Here is an example of the kinds of workflow problems that projects, and more specifically for us RStudio Projects, are meant to avoid:
+## 5.1. How do R and R Studio help with this?
 
-* Imagine that we have our Shasta Lake Level data in an Excel Workbook
-* we want to do some analysis of seasonal flows over time so we create a new sheet and make some tables of summary statistics.
-* Next we decide that daily data are too noisy and what we really want is just some reasonably smooth data value that illustrates trend. We decide to use the weekly maximum value. To do this we create a new column in the sheet called "week_max" and decide to define a week as Sunday - Saturday so every row corresponding to a Sunday has an observation and every other cell is blank.
-* Next we get some data on temperature of the Sacramento River. We want to match this temperature data with Shasta Lake Level data to determine how releases from Shasta Dam affect the temperature of the river.
-* We create a new sheet and put our temperature data there
-* The temperature data is collected every hour so there are 24 observations for every day. Our lake level data is daily so we need to create a temperature value that is daily. We decide to use the daily max value so we create a new column for this called "daily_max." 
-* But to summarize how temperature is related to lake level we need the change in daily lake level. That is, the amount of water released from the dam should equal the lake level yesterday - lake level today. So we make another column.
-* Now we make another sheet for our table of summary statistics. 
+R is a programming language. Using R allows you to record the steps of your analysis in a way that preserves everything you've done. 
+
+R Studio is a software tool that organizes your R code and dependencies (data files for example) so that it can be easily shared with others that might seek to replicate your analysis. 
+
+There are many good reasons to organize your work in projects. You can read a more thorough discussion the advantages of organizing work as project [in this Software Carpentry Module](https://swcarpentry.github.io/r-novice-gapminder/02-project-intro/index.html). I'm not qualified to talk about all the magnificent ways that RStudio Projects will change your lives, I'm only really qualified to discuss why I find them advantageous: Organizing work in projects makes it self-contained which makes it easily reproducible and shareable.
 
 
-I would like to highlight two very common problems that arise with this type of workflow:
+# 6. Workflow Example
 
-1. When the number of data manipulations is small, the researcher can probably keep track of each one if they are meticulous about documenting each step. When the number of data manipulations grows so does the probability that one of these operations won't be properly documented and the researcher will end up with a set of tables with numbers in them, the origin of which is totally unknown.
+In Economics and Social Science we are often tasked with using observational data (as opposed to controlled experimentation) to answer questions. Suppose we are given a data set including property values (home prices) for individual homes and their addresses. We are asked to evaluate the impact of proximity to a landfill on property values. Suppose also that we want to do the analysis in Excel (or some other spreadsheet type application).
 
-As a corollary, my observations have lead me to conclude that virtually everyone (myself included) overestimates how meticulous they really are. If you believe that you will painstakingly record and document every data manipulation and nothing will slip through the cracks no matter how much the project scope grows, I have 15 years of experience working with people that love Excel that tell me you're wrong. 
+As a first pass we decide to:
 
-2. If there is only 1 person working on this project maybe it's possible to document every single data manipulation properly. But what if two people are working on the project. Imagine that one of those people makes a table that summarizes the weekly maximum lake level value over time. Then the other person thinks it's strange that the lake level values are in feet instead of meters and decides to convert them. This changes all the values in the tables that are linked to the data. And what if one of those tables has already been copied over to a Microsoft Word document for a report? Now we have a table in the Excel file that should match the table that copied into the report but does not.
+* Step 1: calculate the distance of each home to the landfill - At a minimum this will involve creating a new column in the spreadsheet and embedding a formula in this column.
 
+* Step 2: create a categorical variable indicating whether each property is 
 
-# Libraries and Packages
+    * less than 1 mile from the landfill
+    * between 1 mile and 2 miles from the landfill
+    * more than 2 miles from the landfill
 
-## How to Install Packages
+This will again necessitate creating a new column and embedding a formula to generate the categorical distance variable.
 
-From a programming and software development standpoint I think it is frowned upon to introduce this topic this early in the tutorial. From a scientific inquiry and data analysis standpoint I think this topic is critical and needs to be addressed sooner rather than later.
+* Step 3: take the average of home prices in each of the 3 distance bands - to do this one would most likely create another sheet and, in three separate cells in the new sheet, insert a formula equal to the average of certain highlighted cells from the first sheet.
 
-The process for installing packages is pretty straightforward. Normally one can just type:
+If the average price is lower for the homes in the `less than 1 mile` distance band compared to the other two distance bands we might conclude that being close to a landfill does have a negative effect on home prices.
 
-```{r, eval=F}
-install.packages("packagename")
+Now suppose we want to refine this analysis. 
 
-```
+## 6.1. Hypothetical Refinement 
 
-If you copy that line into your R console it will probably tell you there is no package called "package name" but you may be able to execute this line:
+Suppose we observe that the houses located in the `less than 1 mile` distance band are generally smaller (maybe 3 bedroom, 2 bathroom) than the houses located in the `more than 2 miles` distance band (maybe those are predominantly 4 bedroom, 2.5 bathroom houses). This means we're not really comparing like things. We decide on two ways to fix this problem:
 
-```{r, eval=F}
-install.packages("dplyr")
+* Step 4: divide the home price by the square footage to get a price per square foot - this will require another column-creation operation with an embedded formula
 
-```
+* Step 5: We might suspect that even price per square foot isn't a fair measure as larger houses might command a higher price per square foot. To deal with this, we could refine the analysis to only include houses of the same size (say 3 bed, 2 bath houses) in each distinct band. This generates another set of results requiring that we separately highlight those cells containing:
 
-Once a package is installed, it still must be loaded into the active workspace. This can be done as follows:
-
-```{r}
-require(dplyr)
-
-```
-
-Sometimes, weird things happen and packages don't install. Sometimes it can be beneficial to try the point-and-click way:
-
-* Packages --> install packages if you are using the R Gui
-* Tools --> install packages in RStudio
+    * all the 3 bed, 2 bath houses located less than 1 mile from the landfill
+    * all the 3 bed, 2 bath houses located between 1 and 2 miles from the landfill
+    * all the 3 bed, 2 bath houses located between 
 
 
-Sometimes, installing and using packages gets funky if you don't understand exactly where R is installing and looking for external packages. In such cases, a good first step is to look at where R is looking for packages:
+## 6.2. Problems
 
-```{r}
-.libPaths()
+1. This type of analysis will be very difficult and potentially impossible for a researcher who is not you to reproduce. This is because all of the work is contained in formulas that are embedded in cells that all reference other collections of cells. It would be incredibly difficult for another researcher to untangle what you did because there is no clear record of it.
 
-```
+2. This type of analysis will also be very difficult for you to reproduce. And if results can't be reproduced, they can't be taken seriously. Consider the following hypothetical:
 
-This will give you the file locations where R is looking to find packages when you do a ```require(packagename)```. 
+Suppose you decide that the 3 distance bands (less than 1 mile, 1 mile to 2 miles, and more than 2 miles from the landfill) are too coarse and you want to redo your analysis using different distance bands:
 
-In cases where the place that R is installing packages when you do ```install.packages(packagename)``` is not the same place that R is looking for packages when you do ```require(packagename)```, the solution to overcome this will be a little difficult. 
-
-[I suggest starting here](https://www.accelebrate.com/library/how-to-articles/r-rstudio-library). I am also available to help troubleshoot these types of issues.
-
-
-## Why Do I Need to Install Packages
-
-I encourage you to do some of your own reading and form your own opinions about how much you want to rely on external packages versus base code. The R approach of having a lot functionality "baked in" to base code then allowing lots of other functionalities to be supported by other open source libraries has the following flexibility:
-
-it makes R a very flexible language while still being a relatively easy to use language. In the world of computers and code there will always be a tradeoff between scope (the universe of things you can do) and approachability (how easy it is to do things).
-
-C is a language with a lot of flexibility. You can do anything from complex biostatistics to building an iPhone app in C. However, doing anything C requires substantial expertise in both the subject matter and the programming language. You *can* take the mean of a group of numbers in C but you can't tell C something like:
-
-```{r}
-mean(2,3,4)
-
-```
-
-Instead you would do something like,
-
-```{r, eval=F}
-int i, j, k; 
-double meanval;
-
-i=10;
-j=20;
-k=30;
-
-meanval = (i+j+k)/3
-
-```
-
-On the other hand, Excel makes it very easy to take the mean value of some numbers. You just point-and-click the *mean* function and highlight the cells you want to use.
-
-To recap:
-
-* C has a lot of flexibility but also a lot of complexity. In C you are not limited only to the things C says you can do, you are only limited by the things you are able to do.
-* Excel has no flexibility but also very little complexity. In Excel you are completely limited only to operations that Excel approves of - you can take the mean of some number, you can make a bar chart, but you will never be able to program an iPhone app.
-
-R's approach to navigate this tradeoff between flexibility and complexity is to offer some things you can do with base code - make graphs, add numbers, store data - and leave other functionalities to be developed by the users. The result is a very powerful piece of software that can do highly complex analysis across a wide range of disciplines (finance, political science, biology, hydrology, oceanography, physics, psychology, etc.) but is still relatively easy to use. 
+* in order to create the average in Step #3 above you most likely would have wanted to sort your data by distance band. This is because the formula for `average` requires you to highlight the cells you want to take the average over, an operation that is greatly simplified if all the cells you want to highlight for an operation are sequentially located.
+* if you create new distance bands, you'll need to re-sort the data in order to take the average home price for the new distance bands
+* once you reshuffle the data by re-sorting it, all of the formulas from Step #3 - Step #5 which required cell range highlighting are now compromised. 
 
 
-Some External Resources:
+## 6.3. Solution
 
-* [Here is a list of popular packages hosted by RStudio](https://support.rstudio.com/hc/en-us/articles/201057987-Quick-list-of-useful-R-packages)
-* [An entire book on R Packages by Hadley Wickham and Jenny Bryan](https://r-pkgs.org/)
+1. If our data manipulations are memorialized in code (rather than existing as embedded formulas in a spreadsheet) and saved in a text document then we will always have a reference for exactly what we did.
+
+    * this is the `R` part: use a code-based solution to preserve analytical operations
+
+2. If our data are kept separate from our code and treated as 'Read Only' we won't have to worry about altering source data with data manipulations.
+
+    * this is the R Studio part: use R Studio to bundle code and data in order to easily share your work.
+
+In general:
+
+A. When the number of data manipulations is small, the researcher can probably keep track of each one if they are meticulous about documenting each step. When the number of data manipulations grows so does the probability that one of these operations won't be properly documented and the researcher will end up with a set of tables with numbers in them, the origin of which is totally unknown.
+
+    As a corollary, my observations have lead me to conclude that virtually everyone (myself included) overestimates how meticulous they really are. If you believe that you will painstakingly record and document every data manipulation and nothing will slip through the cracks no matter how much the project scope grows, I have 15 years of experience working with people that love Excel that tell me you're wrong. 
+
+B. If there is only 1 person working on this project maybe it's possible to document every single data manipulation properly. But what if two people are working on the project together from different locations. Imagine that one of those people makes a table that summarizes the weekly maximum lake level value over time. Then the other person thinks it's strange that the lake level values are in feet instead of meters and decides to convert them. This changes all the values in the tables that are linked to the data. And what if one of those tables has already been copied over to a Microsoft Word document for a report? Now we have a table in the Excel file that should match the table that copied into the report but does not.
 
 
-
-# Data Types and Data Structures
-
-This is a weird transition, I know. Given the mix of scholars in the HPP Program this year I think it's good to mix procedural content with some technical content. The previous sections were kind procedural, focused on the basic question of "how do we do *things* in R." This exercise is a little more technical, focused more on the question of, "how do we analyze data in R." 
-
-I have a [full tutorial on this topic available here](https://drive.google.com/file/d/1ecS0OVft4oZRfmC2-cFO8GUPQnqBaNLs/view?usp=sharing). It's kind of long but it has lots of code that you can use to familiarize yourself with data structures in R.
-
-
+<img src="C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/repres-flow.png">
 

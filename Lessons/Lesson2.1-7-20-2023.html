@@ -11,8 +11,9 @@
 
 <meta name="author" content="Aaron Mamula" />
 
+<meta name="date" content="2023-06-28" />
 
-<title>Lesson1-7-13-2023</title>
+<title>Lesson2.1-7-20-2023</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -349,405 +350,110 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Lesson1-7-13-2023</h1>
+<h1 class="title toc-ignore">Lesson2.1-7-20-2023</h1>
 <h4 class="author">Aaron Mamula</h4>
-<h4 class="date">6/21/2023</h4>
+<h4 class="date">2023-06-28</h4>
 
 </div>
 
 
-<div id="resources" class="section level1">
-<h1>Resources</h1>
+<div id="libraries-and-packages" class="section level1">
+<h1>Libraries and Packages</h1>
+<div id="how-to-install-packages" class="section level2">
+<h2>How to Install Packages</h2>
+<p>From a programming and software development standpoint I think it is
+frowned upon to introduce this topic this early in the tutorial. From a
+scientific inquiry and data analysis standpoint I think this topic is
+critical and needs to be addressed sooner rather than later.</p>
+<p>The process for installing packages is pretty straightforward.
+Normally one can just type:</p>
+<pre class="r"><code>install.packages(&quot;packagename&quot;)</code></pre>
+<p>If you copy that line into your R console it will probably tell you
+there is no package called “package name” but you may be able to execute
+this line:</p>
+<pre class="r"><code>install.packages(&quot;dplyr&quot;)</code></pre>
+<p>Once a package is installed, it still must be loaded into the active
+workspace. This can be done as follows:</p>
+<pre class="r"><code>require(dplyr)</code></pre>
+<pre><code>## Loading required package: dplyr</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<p>Sometimes, weird things happen and packages don’t install. Sometimes
+it can be beneficial to try the point-and-click way:</p>
 <ul>
-<li><p><a href="https://www.youtube.com/watch?v=TFGYlKvQEQ4">YouTube
-Video on downloading and installing R and R Studio</a></p></li>
-<li><p><a href="https://github.com/aaronmams/rHD-Data-Wrangling/blob/master/Data-Types-and-Structures.Rmd">A
-tutorial I wrote for another class on data types and structures in
-R</a></p>
-<p>** It’s kind of long but it has lots of code that you can use to
-familiarize yourself with data structures in R. It’s also formatted as
-an R Markdown file which may be an unfamiliar file type to some of you
-at this point.</p></li>
+<li>Packages –&gt; install packages if you are using the R Gui</li>
+<li>Tools –&gt; install packages in RStudio</li>
 </ul>
+<p>Sometimes, installing and using packages gets funky if you don’t
+understand exactly where R is installing and looking for external
+packages. In such cases, a good first step is to look at where R is
+looking for packages:</p>
+<pre class="r"><code>.libPaths()</code></pre>
+<pre><code>## [1] &quot;C:/Program Files/R/R-4.2.3/library&quot;</code></pre>
+<p>This will give you the file locations where R is looking to find
+packages when you do a <code>require(packagename)</code>.</p>
+<p>In cases where the place that R is installing packages when you do
+<code>install.packages(packagename)</code> is not the same place that R
+is looking for packages when you do <code>require(packagename)</code>,
+the solution to overcome this will be a little difficult.</p>
+<p><a href="https://www.accelebrate.com/library/how-to-articles/r-rstudio-library">I
+suggest starting here</a>. I am also available to help troubleshoot
+these types of issues.</p>
 </div>
-<div id="purpose" class="section level1">
-<h1>Purpose</h1>
-<p>The purpose of this lesson is to familiarize everyone with the R
-Software. The code provided here will allow you all to practice three
-fundamental tasks:</p>
-<ol style="list-style-type: decimal">
-<li>practice running code from the interactive console</li>
-<li>practice importing your own data from an external source</li>
-<li>practice bundling code (a script) to achieve a reproducible
-output</li>
-</ol>
-</div>
-<div id="instructions" class="section level1">
-<h1>Instructions</h1>
-<p>The shaded blocks below that look like this:</p>
-<pre class="r"><code>the stuff in here is code</code></pre>
-<p>contain R code. I recommend you copy these bits of code and paste
-them into your R console to see what they are doing.</p>
-</div>
-<div id="problem" class="section level1">
-<h1>Problem</h1>
-<p>We’re going to consider the toy problem of summarizing different
-flavors of hydrologic data on river flows.</p>
-<div id="problem-iteration-1" class="section level2">
-<h2>Problem Iteration #1</h2>
-<p>For this Example it may be useful for you to refer to the <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">R
-Manual, specifically page 7</a> on simple data structures.</p>
-<p>Let’s suppose we made several measurements of stream flow for a
-particular stream and we recorded them in a notebook. The measurement
-values are all discharge at a particular stream gauge measured in cubic
-feet per second (cfs). I like to try to give things a real life flavor
-when I can so I’m going to suppose that I took these measurements at
-Soquel Creek which is a seasonal steelhead supporting creek near my
-house. Here’s an embedded google map of the approximate location of
-Soquel Creek:</p>
-<iframe src="data:text/html; charset=UTF-8;charset=utf-8,%3C%21DOCTYPE%20html%3E%0A%3Chtml%3E%0A%20%20%3Chead%3E%0A%20%20%20%20%3Cstyle%20type%3D%22text%2Fcss%22%3E%0A%20%20%20%20%20%20html%2C%20body%2C%20%23mapDiv%20%7B%0A%20%20%20%20%20%20%20%20height%3A%20100%25%3B%0A%20%20%20%20%20%20%20%20margin%3A%200%3B%0A%20%20%20%20%20%20%20%20padding%3A%200%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%3C%2Fstyle%3E%0A%20%20%3C%2Fhead%3E%0A%20%20%3Cbody%3E%0A%20%20%20%20%3Cdiv%20id%3D%22mapDiv%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%0A%20%20%20%20%3Cscript%20nonce%3D%22kC88Lne5xtyEeHoytvPddA%22%3E%0A%20%20%20%20%20%20function%20onEmbedLoad%28%29%20%7B%0A%20%20%20%20%20%20%20%20initEmbed%28%5Bnull%2Cnull%2Cnull%2Cnull%2Cnull%2C%5B%5B%5B2%2C%22spotlight%22%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C%5B%5Bnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C%5Bnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C1%5D%5D%2C%5B%220x808e395494be1077%3A0xa538a07ec202f1ca%22%2C%22Soquel%20Creek%22%2Cnull%2C%5Bnull%2Cnull%2C37%2E0526404%2C%2D121%2E9229361%5D%2C2%2C1%5D%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C11%2Cnull%2C%5Bnull%2C%22a%22%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C1%2Cnull%2Cnull%2Cnull%2C%5Bnull%2Cnull%2Cnull%2Cnull%2Cnull%2C0%2Cnull%2Cnull%2C1%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C1%2C1%5D%2Cnull%2Cnull%2Cnull%2C%5Bnull%2Cnull%2Cnull%2Cnull%2Cnull%2C2%2C3%2C2%5D%5D%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C%5B12%2C14%2C29%2C30%2C61%2C70%5D%5D%5D%5D%5D%2Cnull%2C%5B%22en%22%2C%22us%22%5D%2C%5Bnull%2Cnull%2Cnull%2C%22%2Fmaps%2Fapi%2Fjs%2FApplicationService%2EGetEntityDetails%22%2C%22%2Fmaps%2Fembed%2Fupgrade204%22%2Cnull%2C%22%2Fmaps%2Fembed%2Frecord204%22%5D%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C%22J8qcZI2kKe250PEPl%2Du1qAo%22%2Cnull%2Cnull%2Cnull%2C%5B%5B%5B99009%2E75704604079%2C%2D121%2E89038485%2C37%2E0396569%5D%2C%5B0%2C0%2C0%5D%2Cnull%2C13%2E10000038146973%5D%2Cnull%2C1%2C%5B%5B%220x808e395494be1077%3A0xa538a07ec202f1ca%22%2C%22Soquel%20Creek%2C%20California%22%2C%5B37%2E0526404%2C%2D121%2E9229361%5D%5D%2C%22Soquel%20Creek%22%2C%5B%22California%22%5D%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C%22River%22%2C%22California%22%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C1%2Cnull%2Cnull%2Cnull%2C%22ChIJdxC%2DlFQ5joARyvECwn6gOKU%22%2Cnull%2Cnull%2C%220ahUKEwjN04%5Fdluf%5FAhXtHDQIHZd1DaUQ8BcIAigA%22%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C1%5D%5D%2Cnull%2Cnull%2Cnull%2C0%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C%5B1%5D%5D%29%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20function%20onApiLoad%28%29%20%7B%0A%20%20%20%20%20%20%20%20var%20embed%20%3D%20document%2EcreateElement%28%27script%27%29%3B%0A%20%20%20%20%20%20%20%20embed%2Esrc%20%3D%20%22https%3A%2F%2Fmaps%2Egstatic%2Ecom%2Fmaps%2Dapi%2Dv3%2Fembed%2Fjs%2F53%2F8%2Finit%5Fembed%2Ejs%22%3B%0A%20%20%20%20%20%20%20%20document%2Ebody%2EappendChild%28embed%29%3B%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%3C%2Fscript%3E%0A%20%20%20%20%3Cscript%20src%3D%22https%3A%2F%2Fmaps%2Egoogleapis%2Ecom%2Fmaps%2Fapi%2Fjs%3Fclient%3Dgoogle%2Dmaps%2Dembed%26amp%3Bpaint%5Forigin%3D%26amp%3Blibraries%3Dgeometry%2Csearch%26amp%3Bv%3D3%2Eexp%26amp%3Blanguage%3Den%26amp%3Bregion%3Dus%26amp%3Bcallback%3DonApiLoad%22%20nonce%3D%22kC88Lne5xtyEeHoytvPddA%22%20async%20defer%3E%3C%2Fscript%3E%0A%20%20%3C%2Fbody%3E%0A%3C%2Fhtml%3E%0A" width="600" height="450" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-</iframe>
-<p>The measurements I’m pretending we took are actual flows from Soquel
-Creek that took from the US Geologic Survey’s searchable database of
-stream flow measurements:</p>
-<p><a href="https://waterdata.usgs.gov/nwis/dv/?site_no=11160000&amp;agency_cd=USGS&amp;amp;referred_module=sw" class="uri">https://waterdata.usgs.gov/nwis/dv/?site_no=11160000&amp;agency_cd=USGS&amp;amp;referred_module=sw</a></p>
-<p>Suppose those measurements were the following:</p>
-<ul>
-<li>on 6/1/2022 we recorded 2.68 cfs</li>
-<li>on 6/6/2022 we recorded 3.10 cfs</li>
-<li>on 6/10/2022 we recorded 1.92 cfs</li>
-<li>on 6/15/2022 we recorded 1.36 cfs</li>
-<li>on 6/20/2022 we recorded 1.35 cfs</li>
-<li>on 6/25/2022 we recorded 1.06 cfs</li>
-</ul>
-<p>Now we would like to produce some basic summaries of the flow data in
-R.</p>
-<div id="syntax-example-create-a-vector-of-numeric-values" class="section level3">
-<h3>Syntax Example: Create a vector of numeric values</h3>
-<pre class="r"><code>flows &lt;- c(2.68,3.10,1.92,1.36,1.35,1.06)</code></pre>
-<p>This single line of code takes 6 objects (the individual flow
-measurement), combines them into a data structure called a vector, and
-assigns that vector to an object that we named “flows.”</p>
-<p>That’s a lot of jargon for 1 line of code so let’s break it down a
-little further:</p>
-<p>In the example above we have 3 pieces of syntax that are important to
-understand. I’m going to break these down in reverse order to how they
-appear:</p>
-<ol style="list-style-type: decimal">
-<li>The <code>c(2.68,3.10,1.92,1.36,1.35,1.06)</code> is R’s syntax for
-combining or concatenating objects. “Object” is a general term for
-things our programming language understands. Objects can be very
-simple:</li>
-</ol>
-<ul>
-<li>numbers (e.g. 1,2,3)</li>
-<li>letters (e.g. a, b, c)</li>
-<li>words (“dog”,“cat”)</li>
-</ul>
-<p>and objects can also be more complicated:</p>
-<ul>
-<li>groups of individual numbers can be combined to make a numeric
-vector</li>
-<li>groups of words can be combined to make a character vector</li>
-<li>groups of vectors can combined to make a data frame or list</li>
-</ul>
-<p>At this point it’s probably not helpful for you to overthink the
-syntax <code>c(...)</code>. Just try to remember that this notation is
-what we use to make groups of “things.”</p>
-<ol start="2" style="list-style-type: decimal">
-<li>The <code>&lt;-</code> symbol. This syntax is created using the
-<code>&lt;</code> sign and the <code>-</code> sign. This is simply R’s
-way of doing assignment. Depending on who you talk to this is either an
-esoteric concept or something so pivotal that misunderstanding it will
-cause your computer to blow up. I claim neither side of this debate. I’m
-just here to help you understand the R world as it is, not as I believe
-it should be. To that end:</li>
-</ol>
-<p>In programming, the <code>=</code> sign is often reserved for
-mathematical identities. For example the statement <code>2+2=4</code> is
-a mathematical identity.</p>
-<p>In this case we are defining to object called “flows” to equal the
-concatenation of several flow measurements. There is underlying axomatic
-reason for doing this. So we would like a way to do this assignment
-without conceptually mixing it up with an immutable mathematical
-reality. To do this we use the assignment operator. Note that the
-assignment operator will work even if you try to assign an object to a
-value that doesn’t make sense to you. For example, note what happens
-when do the following:</p>
-<pre class="r"><code>a &lt;- &quot;b&quot;
-a</code></pre>
-<pre><code>## [1] &quot;b&quot;</code></pre>
-<pre class="r"><code>fred &lt;- &quot;john&quot;
-fred</code></pre>
-<pre><code>## [1] &quot;john&quot;</code></pre>
-<p>The point here is that assignment is just what it sounds like, you
-are assigning a value to an object. As long as you use the proper
-syntax, your computer will allow you to assign a value to an object that
-may or may not make sense to your brain.</p>
-<p>This is useful property for a programming language to have even it
-sounds somewhat ridiculous right now.</p>
-<ol start="3" style="list-style-type: decimal">
-<li>The <code>flows</code> part is the final piece of the assignment
-operation. <code>flows</code> is a just a name that I have chosen to
-hold the values 2.68,3.10,1.92,1.36,1.35, and 1.06. I could have chosen
-<code>x</code> or <code>y</code> or <code>soquel_creek</code>.</li>
-</ol>
-<p>At this point it may be helpful to read <a href="https://cran.r-project.org/doc/FAQ/R-FAQ.html#What-are-valid-names_003f">What
-are Valid Names?</a> from the R Programming Manual.</p>
-<p>Also, by copying the syntax below into your R Console you can see a
-list of words that R will not allow you to use for object assignment
-because R already attaches certain functionality to these words:</p>
-<pre class="r"><code>?make.names</code></pre>
-<p>Finally, what happens if we do accidentally try to use a reserved
-word as an object name in our code?</p>
-<pre class="r"><code>if &lt;- 2.8</code></pre>
-<p>we get an error that says ```Error: unexpected assignment in “if
-&lt;-”. So R is telling us to name our object something else.</p>
-</div>
-<div id="syntax-example-summarize-the-measurements" class="section level3">
-<h3>Syntax Example: Summarize the measurements</h3>
-<p>So now that we have created a vector containing our streamflow
-measurements, let’s do some stuff with it:</p>
-<ol style="list-style-type: decimal">
-<li>Describe the object:</li>
-</ol>
-<pre class="r"><code>str(flows)</code></pre>
-<pre><code>##  num [1:6] 2.68 3.1 1.92 1.36 1.35 1.06</code></pre>
-<p>There are many ways to get information about objects in your R
-environment. The <code>str()</code> function is one of them.
-<code>str()</code> stands for “structure” and the purpose of this
-function is to return some information about the structure of the object
-that you feed it.</p>
-<p>This is probably a good time to pause and review some important
-terminology:</p>
-<ul>
-<li><p><code>str()</code> is a built-in function. It accepts an input
-and produces some output. The output it produces is summary information
-about the input that was supplied</p></li>
-<li><p><code>flows</code> is an object. The object has certain
-properties. In this case the most notable property is that it is a
-collection of 6 numbers. If we forget what properties an object in our
-workspace has, we use the <code>str()</code> function to find
-out.</p></li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>Get the minimum streamflow value in our sequence:</li>
-</ol>
-<pre class="r"><code>min(flows)</code></pre>
-<pre><code>## [1] 1.06</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Get the max value for streamflow in our sequence.</li>
-</ol>
-<pre class="r"><code>max(flows)</code></pre>
-<pre><code>## [1] 3.1</code></pre>
-<p>Just to deepen our understanding of what’s going on let’s try this a
-few other ways:</p>
-<p>Here, I’m demonstrating that we can apply functions to other
-function. Recall that the <code>c()</code> operator was a function for
-combining things. The <code>max()</code> function identifies the maximum
-value of the things that are being combined by the <code>c()</code>
-function:</p>
-<pre class="r"><code>max(c(2.68,3.10,1.92,1.36,1.35,1.06))</code></pre>
-<pre><code>## [1] 3.1</code></pre>
-<p>The <code>max()</code> function will work the same without the
-<code>c()</code> function:</p>
-<pre class="r"><code>max(2.68,3.10,1.92,1.36,1.35,1.06)</code></pre>
-<pre><code>## [1] 3.1</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>What if we want the standard deviation but don’t know exactly how to
-ask for it? R’s internal help menu may not be a huge help here because
-it’s meant to give you information on known sytax and methods. However,
-the open source nature of R means that google searching can often be a
-fruitful avenue for discovery.</li>
-</ol>
-<p>In this case a google search for <code>R standard deviation</code>
-gets me pretty quickly to the <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/sd">relevant
-part of R’s help documentation</a>.</p>
-<pre class="r"><code>sd(flows)</code></pre>
-<pre><code>## [1] 0.8182522</code></pre>
-</div>
-</div>
-<div id="problem-iteration-2" class="section level2">
-<h2>Problem Iteration #2</h2>
-<p>Here we use the Nile River data set that is bundled with R. This is a
-quick introduction to the concept of built-in data sets. These are
-really helpful for practicing coding because they can loaded quickly and
-are well documented so it’s easy to find out what properties the data
-have.</p>
-<ol style="list-style-type: decimal">
-<li><p>First, how do I find out what data sets already exist in the R
-software? Well, <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html">here
-is a list of them all</a> which I found, unsurprisingly, by googling
-<code>R datasets</code>.</p></li>
-<li><p>How do I load a dataset? Like this:</p></li>
-</ol>
-<pre class="r"><code>data(Nile)</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>I did that but nothing happened. What now? Here are a few follow-up
-actions that might be helpful:</li>
-</ol>
-<p>If you’re not sure whether you did it right and want to confirm that
-you do in fact have access to the Nile River Flow dataset you can check
-your workspace:</p>
-<pre class="r"><code>ls()</code></pre>
-<pre><code>## [1] &quot;a&quot;     &quot;flows&quot; &quot;fred&quot;  &quot;Nile&quot;</code></pre>
-<p>This function gives you a list of all the objects in your workspace.
-If there is an object called <code>Nile</code> in the function output,
-that means the object <code>Nile</code> is in your workspace.</p>
-<p>If you are convinced that the <code>Nile</code> dataset is in your
-workspace but want to know more about it, try the <code>str()</code>
-function:</p>
-<pre class="r"><code>str(Nile)</code></pre>
-<pre><code>##  Time-Series [1:100] from 1871 to 1970: 1120 1160 963 1210 1160 1160 813 1230 1370 1140 ...</code></pre>
-<p>This output tells us that the <code>Nile</code> object is a
-time-series vector with 100 different numeric values.</p>
-<ol start="4" style="list-style-type: decimal">
-<li>Finally, we often want to “see” our data which usually involves
-displaying observations in some 2-dimensional space. The simplest R
-function for this is <code>plot()</code>:</li>
-</ol>
-<pre class="r"><code>plot(Nile)</code></pre>
-<p><img src="data:image/png;base64,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" width="672" /></p>
-</div>
-<div id="problem-iteration-3" class="section level2">
-<h2>Problem Iteration #3</h2>
-<p>Here we read in our own dataset and create a script to do things with
-it. This skill (working with our own primary data in R) is the thing
-that I see uniting all scientists at my duty station whether they are
-Oceanographers, Biologists, Economists, or Ecologists.</p>
-<p>For this application I used the same USGS data for Soquel Creek but I
-downloaded daily stream discharge measurements from 1990 to June
-2023.</p>
-<div id="step-1-get-the-data" class="section level3">
-<h3>Step 1: Get the Data</h3>
-<p>The first step in this process is to go into the <a href="https://drive.google.com/drive/folders/14lwS7pfRmr3eEpAlmFCFLfcbFWEDYF7w?usp=drive_link">Data
-folder in the google drive</a> and copy the <code>SoquelCreek.csv</code>
-file somewhere to your computer.</p>
-</div>
-<div id="step-2-bring-the-data-into-r" class="section level3">
-<h3>Step 2: Bring the Data into R</h3>
-<p>To access the data file <code>SoquelCreek.csv</code> within R you
-need to know two things:</p>
-<ol style="list-style-type: decimal">
-<li><p>You need to know where this file lives on your computer. I saved
-this file to my Desktop so the file’s location on my environment is
-<code>C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data/SoquelCreek.csv</code>.
-This will be different for you depending on where you saved the file and
-depending on what operating system you use. The easiest way to figure
-out where your <code>SoquelCreek.csv</code> file lives is to navigate to
-the file in your file browser, right click on it, then select
-“properties.”</p></li>
-<li><p>It is also helpful to know what directories your R instance looks
-for external files. This is not critical to the task at hand but it is
-good to understand.</p></li>
-</ol>
-<p>Each R instance has a “working directory.” This is the directory that
-R will look by default any time you supply code that requires R to look
-for something outside the current workspace. <code>getwd()</code> is a
-function that tells you what R’s current working directory is:</p>
-<pre class="r"><code>getwd()</code></pre>
-<pre><code>## [1] &quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Lessons&quot;</code></pre>
-<p>Now that we know where the file we want is, and we know what
-directory R wants to look for files in, we can bring our
-<code>SoquelCreek.csv</code> data into the workspace:</p>
-<pre class="r"><code>soquel &lt;- read.csv(file=&quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data/SoquelCreek.csv&quot;)</code></pre>
-</div>
-<div id="step-3-explore-the-data" class="section level3">
-<h3>Step 3: Explore the Data</h3>
-<p>Working with data in Excel generally offers you the ability to “see”
-your data. This can be very comforting. Working with data in a
-programmatic environment like R has many, many, many advantages over
-Excel…but it can be somewhat disorienting since it can be difficult to
-“see” the data.</p>
-<p>Our data are too large to reasonably view with our eyes, so we need
-to use various summary functions to get an understanding of the
-structure and properties of the data.</p>
-<p>We can again use the <code>str()</code> function to obtain important
-information about the object <code>soquel</code>.</p>
-<pre class="r"><code>str(soquel)</code></pre>
-<pre><code>## &#39;data.frame&#39;:    12054 obs. of  4 variables:
-##  $ Agency       : chr  &quot;USGS&quot; &quot;USGS&quot; &quot;USGS&quot; &quot;USGS&quot; ...
-##  $ AgencyCode   : int  11160000 11160000 11160000 11160000 11160000 11160000 11160000 11160000 11160000 11160000 ...
-##  $ Date         : chr  &quot;6/20/1990&quot; &quot;6/21/1990&quot; &quot;6/22/1990&quot; &quot;6/23/1990&quot; ...
-##  $ Discharge_cfs: num  3.6 3.6 3.8 3.6 3.6 3.2 2.9 3 3 2.8 ...</code></pre>
-<p>In this case, the <code>str()</code> function tells us that the
-object <code>soquel</code> is a <code>data frame</code> with 12,054
-observations (rows) and 4 variable (columns). Additionally,
-<code>str()</code> tells us what kind of information is stored in each
-of the columns.</p>
-<p>A function for summarizing data frames that I often find a bit more
-useful than the <code>str()</code> function is <code>head()</code></p>
-<p><code>head()</code> is a function that will print the first several
-rows of our rectangular data frame.</p>
-<pre class="r"><code>head(soquel)</code></pre>
-<pre><code>##   Agency AgencyCode      Date Discharge_cfs
-## 1   USGS   11160000 6/20/1990           3.6
-## 2   USGS   11160000 6/21/1990           3.6
-## 3   USGS   11160000 6/22/1990           3.8
-## 4   USGS   11160000 6/23/1990           3.6
-## 5   USGS   11160000 6/24/1990           3.6
-## 6   USGS   11160000 6/25/1990           3.2</code></pre>
-</div>
-</div>
-</div>
-<div id="more-on-working-directories" class="section level1">
-<h1>More on Working Directories</h1>
-<p>You may have noticed that in Step #1 above I went through an example
-of printing the current working directory. You may have also noticed
-that the information in that example was not utilized when we actually
-brought the external data into the R workspace. Here I’ll show you an
-alternative way to bring external data into your R workspace.</p>
-<p>Although it is not strictly necessary to have multiple ways to do the
-same thing, I think it is helpful to understand multiple ways to do
-things because it strengthens your understanding of how the system
-behaves.</p>
-<p>In Step #2 above I imported the Soquel Creek Data by using an
-absolute file path:</p>
-<pre class="r"><code>soquel &lt;- read.csv(file=&quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data/SoquelCreek.csv&quot;)</code></pre>
-<p>I did this because R’s working directory:</p>
-<pre class="r"><code>getwd()</code></pre>
-<pre><code>## [1] &quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Lessons&quot;</code></pre>
-<p>was different from the directory where the file is stored,
-<code>C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data</code>.</p>
-<p>An alternative way to do this would be to change R’s working
-directory to be the directory where the file is stored:</p>
-<pre class="r"><code>setwd(&quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data&quot;)
-soquel2 &lt;- read.csv(&quot;SoquelCreek.csv&quot;)
-str(soquel2)</code></pre>
-<pre><code>## &#39;data.frame&#39;:    12054 obs. of  4 variables:
-##  $ Agency       : chr  &quot;USGS&quot; &quot;USGS&quot; &quot;USGS&quot; &quot;USGS&quot; ...
-##  $ AgencyCode   : int  11160000 11160000 11160000 11160000 11160000 11160000 11160000 11160000 11160000 11160000 ...
-##  $ Date         : chr  &quot;6/20/1990&quot; &quot;6/21/1990&quot; &quot;6/22/1990&quot; &quot;6/23/1990&quot; ...
-##  $ Discharge_cfs: num  3.6 3.6 3.8 3.6 3.6 3.2 2.9 3 3 2.8 ...</code></pre>
-<p>Because I changed the working directory, I was able to use the
-<code>read.csv()</code> function and just give it the file name…instead
-of the entire file path.</p>
-</div>
-<div id="make-a-script" class="section level1">
-<h1>Make A Script</h1>
-<p>This part will have to be demonstrated during class time or maybe
-office hours but I can narrate the basics here.</p>
-<p>We’re going to copy the code below to a text file and save it.</p>
-<pre class="r"><code>setwd(&quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data&quot;)
-soquel_data &lt;- read.csv(&quot;SoquelCreek.csv&quot;)
+<div id="why-do-i-need-to-install-packages" class="section level2">
+<h2>Why Do I Need to Install Packages</h2>
+<p>I encourage you to do some of your own reading and form your own
+opinions about how much you want to rely on external packages versus
+base code. The R approach of having a lot functionality “baked in” to
+base code then allowing lots of other functionalities to be supported by
+other open source libraries has the following flexibility:</p>
+<p>it makes R a very flexible language while still being a relatively
+easy to use language. In the world of computers and code there will
+always be a tradeoff between scope (the universe of things you can do)
+and approachability (how easy it is to do things).</p>
+<p>C is a language with a lot of flexibility. You can do anything from
+complex biostatistics to building an iPhone app in C. However, doing
+anything C requires substantial expertise in both the subject matter and
+the programming language. You <em>can</em> take the mean of a group of
+numbers in C but you can’t tell C something like:</p>
+<pre class="r"><code>mean(2,3,4)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<p>Instead you would do something like,</p>
+<pre class="r"><code>int i, j, k; 
+double meanval;
 
-# fix the column names
-names(soquel_data) &lt;- c(&quot;Source&quot;,&quot;SiteID&quot;,&quot;Date&quot;,&quot;Level&quot;)
+i=10;
+j=20;
+k=30;
 
-# change the &quot;Date&quot; to a date class object
-soquel_data$Date &lt;- as.Date(soquel_data$Date,format=&quot;%m/%d/%Y&quot;)
-str(soquel_data)</code></pre>
-<p>The reason for doing things this way is to make any analysis we might
-do with these data reproducible. Reproducability is important for two
-reasons:</p>
-<ol style="list-style-type: decimal">
-<li><p>It ensures that we have internal consistency in our own analysis.
-Stated more simply, it gives me a way to track all the changes I might
-make to the data in a way that spreadsheets can’t.</p></li>
-<li><p>It makes it easy for us to share data and analysis with other
-people because they can easy retrace all the steps we’ve taken to arrive
-at our results.</p></li>
-</ol>
+meanval = (i+j+k)/3</code></pre>
+<p>On the other hand, Excel makes it very easy to take the mean value of
+some numbers. You just point-and-click the <em>average</em> function and
+highlight the cells you want to use.</p>
+<p>To recap:</p>
+<ul>
+<li>C has a lot of flexibility but also a lot of complexity. In C you
+are not limited only to the things C says you can do, you are only
+limited by the things you are able to do.</li>
+<li>Excel has no flexibility but also very little complexity. In Excel
+you are completely limited only to operations that Excel approves of -
+you can take the mean of some number, you can make a bar chart, but you
+will never be able to program an iPhone app.</li>
+</ul>
+<p>R’s approach to navigate this tradeoff between flexibility and
+complexity is to offer some things you can do with base code - make
+graphs, add numbers, store data - and leave other functionalities to be
+developed by the users. The result is a very powerful piece of software
+that can do highly complex analysis across a wide range of disciplines
+(finance, political science, biology, hydrology, oceanography, physics,
+psychology, etc.) but is still relatively easy to use.</p>
+</div>
 </div>
 
 
