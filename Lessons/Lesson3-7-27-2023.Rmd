@@ -5,14 +5,20 @@ date: "2023-06-27"
 output: html_document
 ---
 
-## Graphic with ggplot2
+This lesson covers how to produce data visuals using the [ggplot2](https://ggplot2.tidyverse.org/) package.
 
-The fact that I'm introducing the ```ggplot2``` package for graphics before spending any meaningful time on regular base-R graphics will probably be controversial.
-
-The reason I'm doing it this way is that (i) we don't really have time to give significant attention to both base-R graphics and ```ggplot2``` graphics and (ii) I don't use base-R for data visuals. I can't teach what I don't use.
+# Resources
 
 There is a great scholarly paper by Hadley Wickham called *A Layered Grammar of Graphics* which is the foundation for the ```ggplot2``` package. The paper was published in the Journal *The Journal of Computational and Graphical Statistics* and is probably a little too dense for me to recommend here. I will instead recommend [this summary](https://cfss.uchicago.edu/notes/grammar-of-graphics/) of the paper. 
 
+# Graphics with ggplot2
+
+The fact that I'm introducing the ```ggplot2``` package for graphics before spending any meaningful time on regular base-R graphics will probably be controversial.
+
+The reason I'm doing it this way is that 
+
+* we don't really have time to give significant attention to both base-R graphics and ```ggplot2``` graphics and 
+* I don't use base-R for data visuals. I can't teach what I don't use.
 
 Here is a quick walk-though of the basic anatomy of a plot using the ```ggplot2``` package and the ```SoquelCreek.csv``` dataset. 
 
@@ -87,7 +93,7 @@ Adding a geometry tells R what kind of plot we want to make. In this case ```geo
 
 ## Some Interesting Extensions
 
-Our data are large and inherantly seasonal. One way we might want to visualize the seasonal patterns of stream flow might be with a boxplot. Here is an example:
+Our data are large and inherently seasonal. One way we might want to visualize the seasonal patterns of stream flow might be with a boxplot. Here is an example:
 
 ```{r}
 # Create a month variable using dplyr syntax
