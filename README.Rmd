@@ -1,0 +1,48 @@
+---
+title: "READ ME"
+author: "Aaron Mamula"
+date: "2023-06-28"
+output: github_document
+---
+
+This is where you will find all the necessary information for the HPP R Tutorials.
+
+# Agenda
+
+```{r echo=F,warning=F, message=F}
+library(tidyr)
+library(readxl)
+library(here)
+library(dplyr)
+library(kableExtra)
+```
+
+```{r echo=F}
+agenda <- read_excel(here('HPP-R-Course-Agenda.xlsx')) %>% select(-Resources,-Code) %>% mutate(LessonDate=format(LessonDate,"%m-%d")) %>%
+            replace(is.na(.),"")
+knitr::kable(agenda) 
+
+```
+
+# Lessons
+
+The individual lessons are contained in the [Lessons Directory](https://github.com/aaronmams/HPP-R-Group-2023/tree/master/Lessons). Each lesson includes a source file with a `.Rmd` extension and a web-readable file with an `.html` extension. It will probably be easiest for you to download the `.html` file in order to follow along with the lessons.
+
+The table above shows which `.html` files correspond to each meeting. For example, the
+
+[Lesson1-7-13-2023.html](https://github.com/aaronmams/HPP-R-Group-2023/blob/master/Lessons/Lesson1-7-13-2023.html)
+
+file, contains the material that will be discussed in the first meeting on 7-13-2023.
+
+
+
+# Dependencies
+
+Some lessons rely on external data files such as `.csv` files. These have been included in the [Data Directory](https://github.com/aaronmams/HPP-R-Group-2023/tree/master/Data). 
+
+In the weekly meetings we will discuss the various ways you can interact with these data files. 
+
+
+
+
+
