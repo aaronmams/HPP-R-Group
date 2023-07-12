@@ -10,7 +10,7 @@ output: html_document
 * [YouTube Video on downloading and installing R and R Studio ](https://www.youtube.com/watch?v=TFGYlKvQEQ4)
 * [A tutorial I wrote for another class on data types and structures in R](https://github.com/aaronmams/rHD-Data-Wrangling/blob/master/Data-Types-and-Structures.Rmd)
 
-    ** It's kind of long but it has lots of code that you can use to familiarize yourself with data structures in R. It's also formatted as an R Markdown file which may be an unfamiliar file type to some of you at this point.
+    * It's kind of long but it has lots of code that you can use to familiarize yourself with data structures in R. It's also formatted as an R Markdown file which may be an unfamiliar file type to some of you at this point.
 
 # Purpose
 
@@ -42,8 +42,7 @@ For this Example it may be useful for you to refer to the [R Manual, specificall
 
 Let's suppose we made several measurements of stream flow for a particular stream and we recorded them in a notebook. The measurement values are all discharge at a particular stream gauge measured in cubic feet per second (cfs). I like to try to give things a real life flavor when I can so I'm going to suppose that I took these measurements at Soquel Creek which is a seasonal steelhead supporting creek near my house. Here's an embedded google map of the approximate location of Soquel Creek:
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d99009.75704604079!2d-121.9755311588595!3d37.026480933126415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808e395494be1077%3A0xa538a07ec202f1ca!2sSoquel%20Creek!5e1!3m2!1sen!2sus!4v1656349014166!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
+![Soquel Creek.](C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/figures/soquel_creek.jpg)
 
 The measurements I'm pretending we took are actual flows from Soquel Creek that took from the US Geologic Survey's searchable database of stream flow measurements:
 
