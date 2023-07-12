@@ -135,6 +135,7 @@ More Packages and Libraries
 08-03
 </td>
 <td style="text-align:left;">
+Lesson4-8-4-2023
 </td>
 <td style="text-align:left;">
 Introductory Data Analysis 2
@@ -143,6 +144,7 @@ Introductory Data Analysis 2
 joining data sets
 </td>
 <td style="text-align:left;">
+vessels.csv; boats.csv; county_pop.csv
 </td>
 </tr>
 <tr>
