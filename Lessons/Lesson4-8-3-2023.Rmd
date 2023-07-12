@@ -1,0 +1,289 @@
+---
+title: "Lesson4-8-3-2023"
+author: "Aaron Mamula"
+date: "2023-06-29"
+output: html_document
+---
+
+```{r message=F, warning=F}
+library(here)
+library(dplyr)
+
+```
+
+This lesson covers how to join different data sets in R. An important disclaimer is that this will not be a very general discussion of how to join dataframes in R. I will be using the [dplyr package](https://dplyr.tidyverse.org/) and `dplyr` syntax to do all of the joins. I can offer two arguments for it's worth focusing this lesson on the `dplyr` way of doing joins:
+
+1. the `dplyr` syntax is quite intuitive, making it easy to understand. And once you understand the mechanics of what joins are doing, it's reasonably easy to explore other syntactic ways of doing them.
+2. `dplyr` is a very popular data wrangling package and, IMHO, it is worth investing some time in developing fluency with this package.
+
+# Resources
+
+* [A very short, general tutorial on joining data sets](https://www.youtube.com/watch?v=_j_nPIa4PYk)
+* [A data joining tutorial specific to R](https://www.youtube.com/watch?v=8ir57LRKV9A)
+* [A nice approachable blog post on joining data sets in R](https://thomasadventure.blog/posts/r-merging-datasets/)
+
+# Vocabulary/Nomenclature
+
+1.  dataframe - an R object used to store data in a rectangular format. You can think of this as the R version of a 'table' or a 'sheet' in Excel.
+
+2. join - a general term for combining two or more sources of data into a single object such as a dataframe. In other settings you may have heard particular set operations being applied in data analysis contexts:
+    * merge
+    * intersection
+    * union
+
+A join is an abstract concept that includes the following `dplyr` specific flavors:
+
+* `inner_join`
+* `left_join`
+* `right_join`
+* `full_join`
+
+These specific methods map to various general set operations (such as union, intersection, etc.).
+
+# Lesson Narrative and Background
+
+I propose the following two examples to illustrate why I think joining datasets deserves its own lesson:
+
+1. Principles of efficient data storage often dictate that we try very hard not to store the same information in multiple places. For example, if we have data on individual purchasing behavior, these data will contain
+
+    * characteristics of the individual (gender, age, address) - these vary across individuals but do not vary within an individual
+    * characteristics of the purchase (amount spent, items purchased, date of purchase) - these vary across purchases
+
+If one were to store such data in a single table, the table would be storing a lot of redundant information. Database managers don't like this. They will generally store this type of data as two distinct tables: one for the individuals and one for the purchases.
+
+If we want to do some analysis of these data, we often need to "glue" the tables together in order to create a data set with all of the information we might want. To do this, we need to know about `joins`. 
+
+2. When working with observational data (data not generated under controlled conditions such as a lab experiment), we often end up with information collected at different resolutions. This is very common in the Social Sciences as we often get data from multiple different sources. For example:
+
+    * we may get some data on individual real estate transactions (home sales) from Zillow or Redfin.
+    * if we want to know how school quality or crime rates affect transaction value we might get some supplementary data from the Department of Education or the FBI's Crime Database. In order to do this type of analysis we would need to know how to join the transactions data, which are defined at the individual home or address level, and the school quality data, which would be defined at the school district, city, or possibly zip code level.
+
+# A Classic Business Example
+
+Consider the example of individuals purchasing things on Amazon. The business (in this case Amazon) will likely have two types of data that can help them learn important things from these purchases:  
+
+1. Accounts: the business (Amazon) will have some record of its users/members/account holders. These data will likely include things like:
+
+    * address
+    * date of birth or age <br/>  
+<br/>
+    
+    
+```{r}
+customers <- data.frame(customerID=c("XX1","XX2","XX3","XX4"),
+                        street_number=c(10,10,10,15),
+                        street_name=c("Marigold","Rose","Wisteria","Iris"),
+                        zip_code=c(95065,85224,89508,97068),
+                        state=c("CA","AZ","NV","OR"),
+                        age=c(46,26,76,22))
+
+knitr::kable(customers,caption="<center><strong>Table 1: Customers Data</strong></center>",
+    escape = FALSE)
+```
+
+2. Transactions: the business will probably also have records of each purchase. These data might include:
+ 
+    * date of purchase
+    * what was purchased
+    * who made the purchase
+    * how much was spent
+
+```{r}
+transactions <- data.frame(date=c("7/10/2023","7/10/2023","2/2/2023","3/10/2023","4/10/2023"),
+                           sku=c(100010,101010,200020,300030,400040),
+                           description=c("Dyson Pure Cool Fan","Yeti Cooler","LL Bean Rain Boots","U Line Snow Shovel","Nike Swim Cap"),
+                           price=c(350,200,120,58,15),
+                           customerID=c("XX2","XX2","XX1","XX3","XX5"),
+                           receipt_number=c(100,100,90,80,92))
+knitr::kable(transactions,caption="<center><strong>Table 2: Transactions Data</strong></center>",
+    escape = FALSE)
+```
+
+In order to join two distinct data sets we need a *key* (or keys). A *key* is a field (or fields) that is common to both data sets. In this case the field `customerID` exists in both the `Customers` data and the `Transactions` data. So we can join the two data sets using that key.
+
+I will limit this cartoonish example to what is often called in *Inner Join*. This means that when I combine the two dataframes I will only be keeping observations where the *key* can be used to uniquely identify observations in BOTH dataframe. Here is the visual:
+
+```{r warning=F,message=F}
+library(dplyr)
+```
+
+```{r}
+new_data <- transactions %>% inner_join(customers,by=c("customerID"))
+knitr::kable(new_data,caption="<center><strong>Table 3: Transactions Data Joined with Customer Data</strong></center>",
+    escape = FALSE)
+```
+
+There are 3 things I want you to note about the information in `Table 3`: 
+
+1. Note that the way this join was conducted basically adds new columns to the `transactions` data frame. These new columns are the columns of the `customers` data frame for each `customerID` in `customers` that matches to the `customerID` in `transactions`. This is a long way of saying that the order of the join will determine how the new data looks. The line of code we used for the join was:
+
+```{r eval=F}
+new_data <- transactions %>% inner_join(customers,by=c("customerID"))
+```
+
+
+In words, what this says is:
+
+> create a new data frame called 'new_data'. To create this new data frame, start with the data frame 'transactions' and add the information from 'customers' to each row in 'transactions' where the 'customerID' in 'custormers' matches the 'customerID' in 'transactions'.
+
+2. Note that there is one row of information from the `customers` dataframe that is not added to `Table 3`. This is because `customerID` XX4 has no transactions in the `transactions` dataframe. Likewise, note that is one row from the `transactions` data that is not included in `Table 3`. This is because `customerID` XX5 from the `transactions` data frame has no corresponding information in the `customers` dataframe.  
+
+3. This example illustrates a `many-to-one` join. The `customers` dataframe has only a single row for each unique `customerID`. The `transactions` dataframe can have many rows with the same unique `customerID` (since the same `customerID` may engage in many transactions).
+
+# Different Types of Joins
+
+In the example above, we used an `inner_join` meaning that we only retained information when there was a *key* match across both data frames. Here I will discuss the `left_join` and `right_join` alternatives to the `inner_join` operation.
+
+As a practical matter, and IMHO, the main thing to recognize about `left_join` and `right_join` is the following:
+
+When joining dataframes *X* and *Y*, it will often be the case that *X* has some key values that *Y* does not have. And *Y* may have some key values that *X* does not have. If we join *X* and *Y* we need to specify what should happen to these key values that are only found in one of the data sets. The method `inner_join` throws away any observations for key values that only appear in one of the dataframes. Sometimes, this is what we want. But other times, we may want to retain observations from key values even if there is no key value match in the other dataframes. The methods `left_join` and `right_join` allow us to specify which observations from non-matching key values should be retained.
+
+## Left Join
+
+To illustrate a "left join" I'll using the following 'real world' example:
+
+*Objective*
+
+Suppose I want to summarize the characteristics of commercial fishing vessels landing catch at each port in California. Are some ports primarily utilized by many small boats landing small amounts of catch? And are other ports primarily utilized by a small number of large boats landings large volumes of fish all at once?
+
+*Data*
+
+I have the following data available to aid my investigation:
+
+* `boats` is a data frame containing characteristics of fishing vessels registered on the U.S. West Coast. The data contain a vessel identifier (VID) and a measure of the length of the vessel (VESSEL_LENGTH). Table 4 shows a snippet of these data.
+
+* `landings` is a data frame containing commercial fish landings made at ports in California. The data contain some information on the vessel that made the landing (a vessel identifier) and some information on the characteristics of the landing (date, amount of each species landed, location of landing). Table 5 illustrates the structure of these data.
+
+* `county_population` is a data frame containing the 2022 population for each California County. Table 6 illustrates these data.
+
+```{r}
+boats <- read.csv(here("Data/vessels.csv")) %>%
+            select(VID,VESSEL_LENGTH)
+knitr::kable(head(boats),caption="<center><strong>Table 4: Characteristics of Commerical Fishing Vessels Registred on the U.S. West Coast</strong></center>")
+```
+
+
+```{r}
+landings <- read.csv(here("Data/landings.csv")) %>% select(-X)
+knitr::kable(head(landings),caption="<center><strong>Table 5: Commerical Fish Landings at California Ports</strong></center>")
+```
+
+```{r}
+county_population <- read.csv(here("Data/county_pop.csv")) %>% select(-X)
+knitr::kable(head(county_population),caption="<center><strong>Table 6: Population for Counties in California</strong></center>")
+```
+
+*Task*
+
+My first task is to find a way to combine the `landings` data with the `boats` data in order to crate a dataframe that has commercial catch by port and the lengths of each vessel landing catch.
+
+The following code accomplishes this task:
+
+```{r}
+new_df <- landings %>% left_join(boats,by=c("VID"))
+knitr::kable(head(new_df),caption="<center><strong>Table 7: Landings Data Fortified with Vessel Lengths</strong></center>")
+```
+
+
+So how is `left_join` different than `inner_join`? To answer this note two important things:
+
+1. The *X* dataframe in our example above is `landings`. This dataframe has many vessel identifiers (VIDs) that are not in the *Y* dataframe, `boats`. We can see this by doing the following:
+
+```{r}
+# get the unique vessel identifiers from the landings dataframe
+v_landings <- unique(landings$VID)
+
+# get the unique vessel identifiers from the boats dataframe
+v_boats <- unique(boats$VID)
+
+# determine if there are VIDs from landings that are not in the collection of VIDs from boats
+v_landings[! v_landings %in% v_boats]
+
+```
+
+we can further verify that these are the VIDs from `landings` that are not in `boats` by doing:
+
+```{r}
+vid_no_match <- v_landings[! v_landings %in% v_boats]
+boats[which(boats$VID %in% vid_no_match),]
+
+```
+
+2. The 2nd thing to note is that the *Y* dataframe, `boats`, contains some VIDs that do not appear in the *X* dataframe, `landings`. We can verify this the same way we just did in #1 above:
+
+```{r}
+# get the unique vessel identifiers from the landings dataframe
+v_landings <- unique(landings$VID)
+
+# get the unique vessel identifiers from the boats dataframe
+v_boats <- unique(boats$VID)
+
+# determine if there are VIDs from boats that are not in the collection of VIDs from landings
+VID_boats_no_match_to_landings <- v_boats[! v_boats %in% v_landings]
+head(VID_boats_no_match_to_landings)
+
+```
+The key to understanding `left_join` is understanding what happened to:
+
+* the VIDs from `landings` that are not in `boats`, and
+* the VIDs from `boats` that are not in `landings`.
+
+
+```{r}
+knitr::kable(head(new_df %>% filter(is.na(VESSEL_LENGTH))),caption="<center><strong>Table 8: VIDs from Landings Data with no matching VID from Boats Data</strong></center>")
+
+```
+
+```{r}
+knitr::kable(nrow(new_df %>% filter(VID %in% VID_boats_no_match_to_landings)),caption="<center><strong>Table 9: Observations in Joined Data from VIDs in Boats Data Not Matching any VID from Landings Data</strong></center>")
+
+```
+
+
+Table 8 shows us that the vessel identifiers that are in `landings` but not in `boats` are retained in the new dataframe. Also, note that these vessel identifiers appear in the new table with an `NA` value for `VESSEL_LENGTH`. 
+
+Table 9 shows us that the vessel identifiers that in `boats` but not in `landings` do not appear in the new dataframe.
+
+If we think about a join in the abstract as 
+
+
+$X join Y$
+
+where $X$ and $Y$ are dataframes. Then a `left_join` is consistent with the following reading of the equation above:
+
+> we start with the dataframe to the left of `join`. To this dataframe we add values from the dataframe to the right of `join` in all cases where there is a key value match. In cases where a key value in $X$ doesn't match any key value from $Y$, keep all observations from $X$ corresponding to that key value.
+
+## Right Join
+
+This will be pretty short and sweet because if you understand `left_join`, it's trivial to understand `right_join`. 
+
+My example here is the following:
+
+*Objective*
+
+To examine the volume of commercial fish landed for each county in Califonia
+
+*Data*
+
+* `county_population` - a dataframe containing the names and populations for all California Counties
+* `landings` - a record of commercial fish landings 
+
+*Task*
+
+1. first I need to summarize the data to get the total amount of fish landed for each county
+2. Then I need to join the summarized `landings` data with the `county_population` data
+
+```{r}
+# first summarize the landings data
+landings_by_county <- landings %>% group_by(COUNTY_NAME) %>% summarise(LBS=sum(LANDED_WEIGHT_LBS))
+# next make the county names conformable across the two data frame
+county_population <- county_population %>% mutate(County=toupper(County))
+# now join the two dataframes but make sure to keep all of the counties, not just the ones that match to landings data
+counties <- landings_by_county %>% right_join(county_population,by=c("COUNTY_NAME"="County"))
+knitr::kable(counties,caption="<center><strong>Table 10: A Right Join of Landings with Counties</strong></center>")
+```
+
+# Homework Challenge
+
+1. In the dataframe `counties` above, how could we replace the NA values with 0 values? 
+
