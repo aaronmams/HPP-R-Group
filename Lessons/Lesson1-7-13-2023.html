@@ -411,7 +411,7 @@ house. Here’s a picture of Soquel Creek:</p>
 <p class="caption">Soquel Creek.</p>
 </div>
 <p>The measurements I’m pretending we took are actual flows from Soquel
-Creek that took from the US Geologic Survey’s searchable database of
+Creek that I took from the US Geologic Survey’s searchable database of
 stream flow measurements:</p>
 <p><a href="https://waterdata.usgs.gov/nwis/dv/?site_no=11160000&amp;agency_cd=USGS&amp;amp;referred_module=sw" class="uri">https://waterdata.usgs.gov/nwis/dv/?site_no=11160000&amp;agency_cd=USGS&amp;amp;referred_module=sw</a></p>
 <p>Suppose those measurements were the following:</p>
@@ -428,7 +428,7 @@ R.</p>
 <div id="syntax-example-create-a-vector-of-numeric-values" class="section level3">
 <h3>Syntax Example: Create a vector of numeric values</h3>
 <pre class="r"><code>flows &lt;- c(2.68,3.10,1.92,1.36,1.35,1.06)</code></pre>
-<p>This single line of code takes 6 objects (the individual flow
+<p>This single line of code takes 6 numbers (the individual flow
 measurement), combines them into a data structure called a vector, and
 assigns that vector to an object that we named “flows.”</p>
 <p>That’s a lot of jargon for 1 line of code so let’s break it down a
@@ -469,14 +469,14 @@ it should be. To that end:</li>
 <p>In programming, the <code>=</code> sign is often reserved for
 mathematical identities. For example the statement <code>2+2=4</code> is
 a mathematical identity.</p>
-<p>In this case we are defining to object called “flows” to equal the
-concatenation of several flow measurements. There is underlying axomatic
-reason for doing this. So we would like a way to do this assignment
-without conceptually mixing it up with an immutable mathematical
-reality. To do this we use the assignment operator. Note that the
-assignment operator will work even if you try to assign an object to a
-value that doesn’t make sense to you. For example, note what happens
-when do the following:</p>
+<p>In this case we are defining an object called “flows” setting it
+equal to the concatenation of several flow measurements. There is an
+underlying axomatic reason for doing this. So we would like a way to do
+this assignment without conceptually mixing it up with an immutable
+mathematical reality. To do this we use the assignment operator. Note
+that the assignment operator will work even if you try to assign an
+object to a value that doesn’t make sense to you. For example, note what
+happens when do the following:</p>
 <pre class="r"><code>a &lt;- &quot;b&quot;
 a</code></pre>
 <pre><code>## [1] &quot;b&quot;</code></pre>
@@ -574,9 +574,9 @@ part of R’s help documentation</a>.</p>
 <h2>Problem Iteration #2</h2>
 <p>Here we use the Nile River data set that is bundled with R. This is a
 quick introduction to the concept of built-in data sets. These are
-really helpful for practicing coding because they can loaded quickly and
-are well documented so it’s easy to find out what properties the data
-have.</p>
+really helpful for practicing coding because they can be loaded quickly
+and are well documented so it’s easy to find out what properties the
+data have.</p>
 <ol style="list-style-type: decimal">
 <li><p>First, how do I find out what data sets already exist in the R
 software? Well, <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html">here
@@ -598,7 +598,7 @@ your workspace:</p>
 If there is an object called <code>Nile</code> in the function output,
 that means the object <code>Nile</code> is in your workspace.</p>
 <p>If you are convinced that the <code>Nile</code> dataset is in your
-workspace but want to know more about it, try the <code>str()</code>
+workspace and want to know more about it, try the <code>str()</code>
 function:</p>
 <pre class="r"><code>str(Nile)</code></pre>
 <pre><code>##  Time-Series [1:100] from 1871 to 1970: 1120 1160 963 1210 1160 1160 813 1230 1370 1140 ...</code></pre>
@@ -619,13 +619,14 @@ it. This skill (working with our own primary data in R) is the thing
 that I see uniting all scientists at my duty station whether they are
 Oceanographers, Biologists, Economists, or Ecologists.</p>
 <p>For this application I used the same USGS data for Soquel Creek but I
-downloaded daily stream discharge measurements from 1990 to June
-2023.</p>
+downloaded daily stream discharge measurements from 1990 to June 2023.
+You can download the .csv file that I’m working <a href="https://github.com/aaronmams/HPP-R-Group-2023">from the Data
+subdirectory of the HPP-R-Group-2023 GitHub page</a>.</p>
 <div id="step-1-get-the-data" class="section level3">
 <h3>Step 1: Get the Data</h3>
-<p>The first step in this process is to go into the <a href="https://drive.google.com/drive/folders/14lwS7pfRmr3eEpAlmFCFLfcbFWEDYF7w?usp=drive_link">Data
-folder in the google drive</a> and copy the <code>SoquelCreek.csv</code>
-file somewhere to your computer.</p>
+<p>The first step in this process is to go into the <a href="https://github.com/aaronmams/HPP-R-Group-2023">Data directory of
+our R Group GitHub page</a>, click on the <code>SoquelCreek.csv</code>
+file, download it, and save it somewhere one your computer.</p>
 </div>
 <div id="step-2-bring-the-data-into-r" class="section level3">
 <h3>Step 2: Bring the Data into R</h3>
@@ -639,7 +640,8 @@ This will be different for you depending on where you saved the file and
 depending on what operating system you use. The easiest way to figure
 out where your <code>SoquelCreek.csv</code> file lives is to navigate to
 the file in your file browser, right click on it, then select
-“properties.”</p></li>
+“properties” (if on a Windows system) or “get info” (if on a
+Mac).</p></li>
 <li><p>It is also helpful to know what directories your R instance looks
 for external files. This is not critical to the task at hand but it is
 good to understand.</p></li>
@@ -675,7 +677,7 @@ information about the object <code>soquel</code>.</p>
 ##  $ Discharge_cfs: num  3.6 3.6 3.8 3.6 3.6 3.2 2.9 3 3 2.8 ...</code></pre>
 <p>In this case, the <code>str()</code> function tells us that the
 object <code>soquel</code> is a <code>data frame</code> with 12,054
-observations (rows) and 4 variable (columns). Additionally,
+observations (rows) and 4 variables (columns). Additionally,
 <code>str()</code> tells us what kind of information is stored in each
 of the columns.</p>
 <p>A function for summarizing data frames that I often find a bit more

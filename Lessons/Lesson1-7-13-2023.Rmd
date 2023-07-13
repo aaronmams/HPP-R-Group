@@ -44,7 +44,7 @@ Let's suppose we made several measurements of stream flow for a particular strea
 
 ![Soquel Creek.](C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/figures/soquel_creek.jpg)
 
-The measurements I'm pretending we took are actual flows from Soquel Creek that took from the US Geologic Survey's searchable database of stream flow measurements:
+The measurements I'm pretending we took are actual flows from Soquel Creek that I took from the US Geologic Survey's searchable database of stream flow measurements:
 
 https://waterdata.usgs.gov/nwis/dv/?site_no=11160000&agency_cd=USGS&amp;referred_module=sw
 
@@ -67,7 +67,7 @@ flows <- c(2.68,3.10,1.92,1.36,1.35,1.06)
 
 ```
 
-This single line of code takes 6 objects (the individual flow measurement), combines them into a data structure called a vector, and assigns that vector to an object that we named "flows." 
+This single line of code takes 6 numbers (the individual flow measurement), combines them into a data structure called a vector, and assigns that vector to an object that we named "flows." 
 
 That's a lot of jargon for 1 line of code so let's break it down a little further:
 
@@ -92,7 +92,7 @@ At this point it's probably not helpful for you to overthink the syntax `c(...)`
 
 In programming, the ```=``` sign is often reserved for mathematical identities. For example the statement ```2+2=4``` is a mathematical identity. 
 
-In this case we are defining to object called "flows" to equal the concatenation of several flow measurements. There is underlying axomatic reason for doing this. So we would like a way to do this assignment without conceptually mixing it up with an immutable mathematical reality. To do this we use the assignment operator. Note that the assignment operator will work even if you try to assign an object to a value that doesn't make sense to you. For example, note what happens when do the following:
+In this case we are defining an object called "flows" setting it equal to the concatenation of several flow measurements. There is an underlying axomatic reason for doing this. So we would like a way to do this assignment without conceptually mixing it up with an immutable mathematical reality. To do this we use the assignment operator. Note that the assignment operator will work even if you try to assign an object to a value that doesn't make sense to you. For example, note what happens when do the following:
 
 ```{r}
 a <- "b"
@@ -189,7 +189,7 @@ sd(flows)
 
 ## Problem Iteration #2
 
-Here we use the Nile River data set that is bundled with R. This is a quick introduction to the concept of built-in data sets. These are really helpful for practicing coding because they can loaded quickly and are well documented so it's easy to find out what properties the data have.
+Here we use the Nile River data set that is bundled with R. This is a quick introduction to the concept of built-in data sets. These are really helpful for practicing coding because they can be loaded quickly and are well documented so it's easy to find out what properties the data have.
 
 1. First, how do I find out what data sets already exist in the R software? Well, [here is a list of them all](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html) which I found, unsurprisingly, by googling ```R datasets```.
 
@@ -211,7 +211,7 @@ ls()
 
 This function gives you a list of all the objects in your workspace. If there is an object called ```Nile``` in the function output, that means the object ```Nile``` is in your workspace.
 
-If you are convinced that the ```Nile``` dataset is in your workspace but want to know more about it, try the ```str()``` function:
+If you are convinced that the ```Nile``` dataset is in your workspace and want to know more about it, try the ```str()``` function:
 
 ```{r}
 str(Nile)
@@ -231,18 +231,17 @@ plot(Nile)
 
 Here we read in our own dataset and create a script to do things with it. This skill (working with our own primary data in R) is the thing that I see uniting all scientists at my duty station whether they are Oceanographers, Biologists, Economists, or Ecologists.  
 
-For this application I used the same USGS data for Soquel Creek but I downloaded daily stream discharge measurements from 1990 to June 2023.
-
+For this application I used the same USGS data for Soquel Creek but I downloaded daily stream discharge measurements from 1990 to June 2023. You can download the .csv file that I'm working [from the Data subdirectory of the HPP-R-Group-2023 GitHub page](https://github.com/aaronmams/HPP-R-Group-2023).
 
 ### Step 1: Get the Data
 
-The first step in this process is to go into the [Data folder in the google drive](https://drive.google.com/drive/folders/14lwS7pfRmr3eEpAlmFCFLfcbFWEDYF7w?usp=drive_link) and copy the ```SoquelCreek.csv``` file somewhere to your computer. 
+The first step in this process is to go into the [Data directory of our R Group GitHub page](https://github.com/aaronmams/HPP-R-Group-2023), click on the ```SoquelCreek.csv``` file, download it, and save it somewhere one your computer. 
 
 ### Step 2: Bring the Data into R
 
 To access the data file ```SoquelCreek.csv``` within R you need to know two things:
 
-1. You need to know where this file lives on your computer. I saved this file to my Desktop so the file's location on my environment is ```C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data/SoquelCreek.csv```. This will be different for you depending on where you saved the file and depending on what operating system you use. The easiest way to figure out where your ```SoquelCreek.csv``` file lives is to navigate to the file in your file browser, right click on it, then select "properties."
+1. You need to know where this file lives on your computer. I saved this file to my Desktop so the file's location on my environment is ```C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Course-2023/Data/SoquelCreek.csv```. This will be different for you depending on where you saved the file and depending on what operating system you use. The easiest way to figure out where your ```SoquelCreek.csv``` file lives is to navigate to the file in your file browser, right click on it, then select "properties" (if on a Windows system) or "get info" (if on a Mac).
 
 2. It is also helpful to know what directories your R instance looks for external files. This is not critical to the task at hand but it is good to understand. 
 
@@ -274,7 +273,7 @@ We can again use the ```str()``` function to obtain important information about 
 str(soquel)
 ```
 
-In this case, the ```str()``` function tells us that the object ```soquel``` is a ```data frame``` with 12,054 observations (rows) and 4 variable (columns). Additionally, ```str()``` tells us what kind of information is stored in each of the columns.
+In this case, the ```str()``` function tells us that the object ```soquel``` is a ```data frame``` with 12,054 observations (rows) and 4 variables (columns). Additionally, ```str()``` tells us what kind of information is stored in each of the columns.
 
 
 A function for summarizing data frames that I often find a bit more useful than the ```str()``` function is ```head()```
