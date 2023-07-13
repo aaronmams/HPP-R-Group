@@ -40,7 +40,7 @@ We're going to consider the toy problem of summarizing different flavors of hydr
 
 For this Example it may be useful for you to refer to the [R Manual, specifically page 7](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf) on simple data structures.
 
-Let's suppose we made several measurements of stream flow for a particular stream and we recorded them in a notebook. The measurement values are all discharge at a particular stream gauge measured in cubic feet per second (cfs). I like to try to give things a real life flavor when I can so I'm going to suppose that I took these measurements at Soquel Creek which is a seasonal steelhead supporting creek near my house. Here's an embedded google map of the approximate location of Soquel Creek:
+Let's suppose we made several measurements of stream flow for a particular stream and we recorded them in a notebook. The measurement values are all discharge at a particular stream gauge measured in cubic feet per second (cfs). I like to try to give things a real life flavor when I can so I'm going to suppose that I took these measurements at Soquel Creek which is a seasonal steelhead supporting creek near my house. Here's a picture of Soquel Creek:
 
 ![Soquel Creek.](C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/figures/soquel_creek.jpg)
 
