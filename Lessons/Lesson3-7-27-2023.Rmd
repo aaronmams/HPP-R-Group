@@ -39,7 +39,13 @@ require(here)
 require(dplyr)
 ```
 
-Next, make sure you have the Soquel Creek Flow Data. You will need to download these data from the google drive and store locally somewhere on your computer.
+Next, make sure you have the Soquel Creek Flow Data. You will need to download these data from the GitHub Repository and store locally somewhere on your computer. If you need a refresher on how to do this:
+
+* go to [https://github.com/aaronmams/HPP-R-Group-2023](https://github.com/aaronmams/HPP-R-Group-2023)
+* navigate to the "Data" subdirectory
+* click on the [SoquelCreek.csv](https://github.com/aaronmams/HPP-R-Group-2023/blob/master/Data/SoquelCreek.csv) file
+* use the icon in the upper right hand side of the preview panel to download the file
+* take the file from your computer's "Downloads" directory over to a directory where you can access it.
 
 Next, make sure these data are available in the workspace. NOTE: you will need to change the file location below to match wherever you have stored the data.
 
