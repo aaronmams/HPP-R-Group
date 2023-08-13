@@ -1,0 +1,88 @@
+---
+title: "Lesson5-8-14-2023"
+author: "Aaron Mamula"
+date: "2023-08-13"
+output: html_document
+---
+
+# Dependencies
+
+```{r message=F,warning=F}
+library(sf)
+library(dplyr)
+library(ggplot2)
+
+```
+
+
+# Data
+
+There are 3 external data files you will need for this lesson:
+
+1. A county boundary shapefile which I have added to the [google drive here](https://drive.google.com/drive/folders/1wY79XVlcGHRULjsBbWWpVkhRKgq4i43l?usp=drive_link).
+
+2. A county population data file for California counties which is in the Github repository.
+
+3. A county-level data file containing covid cases and deaths organized by date and county for U.S. counties. 
+
+```{r}
+counties <- st_read('Data/tl_2020_us_county/tl_2020_us_county.shp')
+
+# select California
+ca_counties <- counties %>% filter(STATEFP=='06')
+```
+
+```{r}
+covid <- read.csv("Data/COVID-us-counties.csv")
+ca_covid <- covid %>% filter(state=="California")
+```
+
+
+```{r}
+# get county populations for California Counties
+ca_county_pop <- read.csv("Data/county_pop.csv")
+
+```
+
+```{r}
+# extract a single point in time for a plot
+covid_point_in_time <- ca_covid %>% mutate(date=as.Date(date,format="%m/%d/%Y")) %>% filter(date=="2021-02-20") 
+
+# add the population data
+covid_point_in_time <- covid_point_in_time %>% left_join(ca_county_pop,by=c("county"="County"))
+
+# create cases per 100k residents and deaths per 100k residents
+covid_point_in_time <- covid_point_in_time %>% mutate(cases_pc=cases/(pop/100000),
+                                                      deaths_pc=deaths/(pop/100000))
+```
+
+
+```{r}
+# make a bar chart
+ggplot(covid_point_in_time,aes(x=county,y=deaths_pc)) + geom_bar(stat='identity') + coord_flip() +
+   theme(axis.text.y=element_text(size=6)) + ylab("Covid Deaths per 100,000 residents as of 2/20/2021") +
+  xlab("")
+
+```
+
+
+```{r}
+# join the covid rates to the county boundaries
+ca_counties <- ca_counties %>% left_join(covid_point_in_time,by=c("NAME"="county"))
+
+# make some breaks to make the map look nicer
+quantile(ca_counties$deaths_pc,probs=c(0.25,0.5,0.75,0.9,na.rm=T))
+
+```
+
+
+```{r}
+ca_counties <- ca_counties %>% mutate(covid_death_rate=ifelse(deaths_pc<49,"Low",
+                                                       ifelse(deaths_pc>=49 & deaths_pc<96,"Moderate",
+                                                       ifelse(deaths_pc>=96 & deaths_pc<141,"High",
+                                                       ifelse(deaths_pc>=141,"Very High",NA))))) %>%
+                mutate(covid_death_rate=factor(covid_death_rate,levels=c("Low","Moderate","High","Very High")))
+
+# make the map
+ggplot(ca_counties) + geom_sf(aes(fill=covid_death_rate)) + theme_bw()
+```
