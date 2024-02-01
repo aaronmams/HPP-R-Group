@@ -1,7 +1,7 @@
 
 #----------------------------------------------------------------------------------
 # simple merge example
-od <- data.frame(state=c('CA','OR','OH','WV','TN','KY','AL'),od_rate=c(26,28,70,90,55,58,49))
+od <- data.frame(state=c('CA','OR','OH','WV','TN','KY','AL','UT'),od_rate=c(26,28,70,90,55,58,49,22))
 unemp <- data.frame(state=c('CA','OR','OH','WV','TN','KY','AL','TX','WA'),unemp=c(5,4,5.5,6.5,4.5,5.5,5.8,3.8,6))
 
 # merge and let R figure it out
@@ -12,6 +12,8 @@ merge(od,unemp,by=c("state"))
 
 # handling unmatched observations
 merge(od,unemp,all.y=T)
+
+merge(od,unemp,by=c("state"),all.x=T,all.y=T)
 #---------------------------------------------------------------------------------
 
 
