@@ -20,6 +20,7 @@ The purpose of this lesson is to familiarize everyone with the R Software. The c
 2. practice importing your own data from an external source
 3. practice bundling code (a script) to achieve a reproducible output
 
+
 # Instructions
 
 The shaded blocks below that look like this:
