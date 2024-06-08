@@ -1,16 +1,15 @@
 ---
-title: "Lesson1-7-13-2023"
+title: "Lesson1-Introduction"
 author: "Aaron Mamula"
 date: "6/8/2024"
 output: html_document
 ---
 
-# Resources
+# Key Resources
 
 * [YouTube Video on downloading and installing R and R Studio ](https://www.youtube.com/watch?v=TFGYlKvQEQ4)
-* [A tutorial I wrote for another class on data types and structures in R](https://github.com/aaronmams/rHD-Data-Wrangling/blob/master/Data-Types-and-Structures.Rmd)
+* [Software Carpentry Tutorial on Data Type and Structures in R](https://swcarpentry.github.io/r-novice-gapminder/04-data-structures-part1.html)
 
-    * It's kind of long but it has lots of code that you can use to familiarize yourself with data structures in R. It's also formatted as an R Markdown file which may be an unfamiliar file type to some of you at this point.
 
 # Purpose
 
@@ -36,14 +35,13 @@ contain R code. I recommend you copy these bits of code and paste them into your
 
 We're going to consider the toy problem of summarizing different flavors of hydrologic data on river flows. 
 
-
 ## Problem Iteration #1
 
 For this Example it may be useful for you to refer to the [R Manual, specifically page 7](https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf) on simple data structures.
 
 Let's suppose we made several measurements of stream flow for a particular stream and we recorded them in a notebook. The measurement values are all discharge at a particular stream gauge measured in cubic feet per second (cfs). I like to try to give things a real life flavor when I can so I'm going to suppose that I took these measurements at Soquel Creek which is a seasonal steelhead supporting creek near my house. Here's a picture of Soquel Creek:
 
-![Soquel Creek.](C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/figures/soquel_creek.jpg)
+![Soquel Creek.](C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group/figures/soquel_creek.jpg){width=50% height=50%}
 
 The measurements I'm pretending we took are actual flows from Soquel Creek that I took from the US Geologic Survey's searchable database of stream flow measurements:
 
@@ -52,16 +50,18 @@ https://waterdata.usgs.gov/nwis/dv/?site_no=11160000&agency_cd=USGS&amp;referred
 
 Suppose those measurements were the following:
 
-* on 6/1/2022 we recorded 2.68 cfs 
-* on 6/6/2022 we recorded 3.10 cfs 
-* on 6/10/2022 we recorded 1.92 cfs 
-* on 6/15/2022 we recorded 1.36 cfs 
-* on 6/20/2022 we recorded 1.35 cfs
-* on 6/25/2022 we recorded 1.06 cfs
+* on 6/1/2024 we recorded 2.68 cfs 
+* on 6/6/2024 we recorded 3.10 cfs 
+* on 6/10/2024 we recorded 1.92 cfs 
+* on 6/15/2024 we recorded 1.36 cfs 
+* on 6/20/2024 we recorded 1.35 cfs
+* on 6/25/2024 we recorded 1.06 cfs
 
 Now we would like to produce some basic summaries of the flow data in R.
 
 ### Syntax Example: Create a vector of numeric values
+
+Vectors are basic data structures in R, the term "Vector" is just R-speak for a one-dimensional array.
 
 ```{r}
 flows <- c(2.68,3.10,1.92,1.36,1.35,1.06)
@@ -128,7 +128,11 @@ if <- 2.8
 
 ```
 
-we get an error that says ```Error: unexpected assignment in "if <- ". So R is telling us to name our object something else.
+we get an error that says something like
+
+>Error: unexpected assignment in "if <- ". 
+
+So R is telling us to name our object something else.
 
 
 ### Syntax Example: Summarize the measurements
@@ -167,7 +171,6 @@ max(flows)
 
 
 Just to deepen our understanding of what's going on let's try this a few other ways:
-
 
 Here, I'm demonstrating that we can apply functions to other function. Recall that the ```c()``` operator was a function for combining things. The ```max()``` function identifies the maximum value of the things that are being combined by the ```c()``` function:
 ```{r}
@@ -232,7 +235,7 @@ plot(Nile)
 
 Here we read in our own dataset and create a script to do things with it. This skill (working with our own primary data in R) is the thing that I see uniting all scientists at my duty station whether they are Oceanographers, Biologists, Economists, or Ecologists.  
 
-For this application I used the same USGS data for Soquel Creek but I downloaded daily stream discharge measurements from 1990 to June 2023. You can download the .csv file that I'm working [from the Data subdirectory of the HPP-R-Group-2023 GitHub page](https://github.com/aaronmams/HPP-R-Group-2023).
+For this application I used the same USGS data for Soquel Creek but I downloaded daily stream discharge measurements from 1990 to June 2023. You can download the .csv file that I'm working [from the Data subdirectory of the HPP-R-Group GitHub page](https://github.com/aaronmams/HPP-R-Group).
 
 ### Step 1: Get the Data
 
@@ -257,7 +260,7 @@ Now that we know where the file we want is, and we know what directory R wants t
 
 
 ```{r}
-soquel <- read.csv(file="C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data/SoquelCreek.csv")
+soquel <- read.csv(file="C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group/Data/SoquelCreek.csv")
 
 ```
 
@@ -294,7 +297,7 @@ Although it is not strictly necessary to have multiple ways to do the same thing
 In Step #2 above I imported the Soquel Creek Data by using an absolute file path:
 
 ```{r, eval=F}
-soquel <- read.csv(file="C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data/SoquelCreek.csv")
+soquel <- read.csv(file="C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group/Data/SoquelCreek.csv")
 
 ```
 
@@ -310,40 +313,13 @@ was different from the directory where the file is stored, ```C:/Users/aaron.mam
 An alternative way to do this would be to change R's working directory to be the directory where the file is stored:
 
 ```{r}
-setwd("C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data")
+setwd("C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group/Data")
 soquel2 <- read.csv("SoquelCreek.csv")
 str(soquel2)
 ```
 
 Because I changed the working directory, I was able to use the ```read.csv()``` function and just give it the file name...instead of the entire file path.
 
-
-# Make A Script
-
-This part will have to be demonstrated during class time or maybe office hours but I can narrate the basics here.
-
-We're going to copy the code below to a text file and save it. 
-
-```{r eval=F}
-
-setwd("C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data")
-soquel_data <- read.csv("SoquelCreek.csv")
-
-# fix the column names
-names(soquel_data) <- c("Source","SiteID","Date","Level")
-
-# change the "Date" to a date class object
-soquel_data$Date <- as.Date(soquel_data$Date,format="%m/%d/%Y")
-str(soquel_data)
-```
-
-
-The reason for doing things this way is to make any analysis we might do with these data reproducible. Reproducability is important for two reasons:
-
-
-1. It ensures that we have internal consistency in our own analysis. Stated more simply, it gives me a way to track all the changes I might make to the data in a way that spreadsheets can't.
-
-2. It makes it easy for us to share data and analysis with other people because they can easy retrace all the steps we've taken to arrive at our results.
 
 
 

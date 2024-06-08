@@ -1,0 +1,103 @@
+---
+title: "Lesson2-ReproducableResearch-Intro"
+author: "Aaron Mamula"
+date: "2024-06-08"
+output: html_document
+---
+
+```{r}
+library(here)
+```
+
+# Purpose
+
+In Lesson 1 we kind of jumped right into *How to use R* without too much discussion of *Why would you want to?*. This Lesson gives an introduction to one of the resasons that R has become popular among data analysts and scientists: Reproducable Research.
+
+This lesson focuses on a single task that is an important element of Reproducable Research: constructing an R Script. 
+
+# Key Resources
+
+* [A Good Blog Post on Advantages of R over Excel](https://www.jumpingrivers.com/blog/comparing-r-excel-data-wrangling/)
+* 
+
+# Make A Script
+
+This part will be much easier to demonstrated during class time but I'll do my best to provide a ste-by-step here. 
+
+## Step 1: Open a Script
+
+> File --> New File --> R Script
+
+```{r out.width="75%", fig.cap="Step 1: Open a Script."}
+knitr::include_graphics(here("figures/make-a-script-Step1.png"))
+
+```
+After you execute this action you'll see a blank scripting window in your R Studio console. If you are using the base-R GUI this will look slightly different.
+
+```{r out.width="75%", fig.cap="Step 1 Result"}
+
+knitr::include_graphics(here("figures/make-a-script-Step2.png"))
+```
+
+## Step 2: Populate the Script
+
+Now we add some code to do some things to our script. We're going to copy the code below to a text file and save it. 
+
+```{r eval=F}
+
+setwd("C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group/Data")
+soquel_data <- read.csv("SoquelCreek.csv")
+
+# fix the column names
+names(soquel_data) <- c("Source","SiteID","Date","Level")
+
+# change the "Date" to a date class object
+soquel_data$Date <- as.Date(soquel_data$Date,format="%m/%d/%Y")
+str(soquel_data)
+```
+
+```{r out.width="75%",fig.cap="Step 2: Populate the Script}
+
+knitr::include_graphics(here("figures/make-a-script-Step3.png"))
+```
+
+## Step 3: Run the Script
+
+There are a number of ways to run your script. The "Run" icon highlighted in the image below will execute the script line-by-line. Alternatively, once can highlight a selection of code and use either the the "Run" icon or a keyboard shortcut to execute the highlighted lines. 
+
+```{r out.width="75%",fig.cap="Step 3: Execute the Script"}
+
+knitr::include_graphics(here("figures/make-a-script-Step4.png"))
+
+```
+
+# Summary
+
+We wrote a script that does a few very simple things:
+
+1. Import some data on stream flows from a .csv file
+2. Changed the field names 
+3. Changed the field called "Date" from a character class variable to a date class variable. 
+
+
+# Discussion
+
+Reproducability refers to how easily results from our analysis can be verified by other researchers. Here are several examples of how organizing organizing our code into scripts promotes reproducability:
+
+1. Using code to do our data manipulations preserves the integrity of the data. In this example, we are not doing any operations directly on the data that we downloaded from the USGS. This is advantageous for a number of reasons:
+
+a. it makes it much easier to share analysis with colleagues. We simply need to pass them the source data and the code. If we were doing manipulations to our data directly in the spreadsheet application we would need to keep a pretty detailed record of everything we did since those manipulations aren't visible within the spreadsheet. Unfortunately, most of us are not as meticulous as we would like to be about documenting our steps. 
+
+b. it also makes it much easier to "undo" things later if we want. Suppose we initially decide to run our analysis on log-transformed versions of our data instead of levels but later we want to repeat our analysis using the original levels. If we do these data manipulations in our spreadsheet application it can be tedious to roll them back and recover the original data. If our data manipulations are carried out via code, the original data is always easily recoverable. 
+
+2. Using code creates a simple and transparent record of what was done and how it was done. This is also advantageous for a few reasons:
+
+a. it simplifies the process of having our work reviewed by others for quality control. We don't need to try and explain all the steps of our analysis in a complicated document, we just need to supply the script which has a complete and transparent record of all operations.
+
+b. it helps our own work by giving our future selves a complete record of what we've done. We are generally more forgetful than we would like to admit and, as much as we might convince ourselves otherwise, we all have a tendency to forget exactly what we did and why we did it when we step away from analysis for a few days. Codifying our analysis into code and organizing that code into scripts means we don't have to try and remember all the data manipulations and modeling assumptions we might have embedded in our analysis. 
+
+3. Code vastly simplifies the process of updating our analysis when new data becomes available. If our analysis is contained in embedded formula within Excel or some spreadsheet application, then all formula need to be separately updated if new observations are added to the data. If our analysis is represented as code then updating analysis to incorporate new data is generally just a matter of pushing a few buttons.
+
+
+
+

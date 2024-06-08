@@ -1,7 +1,7 @@
 ---
 title: "READ ME"
 author: "Aaron Mamula"
-date: "2023-06-28"
+date: "2024-06-08"
 output: github_document
 ---
 
@@ -17,11 +17,19 @@ library(dplyr)
 library(kableExtra)
 ```
 
-```{r echo=F}
-agenda <- read_excel(here('HPP-R-Course-Agenda.xlsx')) %>% select(-Resources,-Code) %>% mutate(LessonDate=format(LessonDate,"%m-%d")) %>%
-            replace(is.na(.),"")
-knitr::kable(agenda) 
 
+```{r echo=F}
+agenda <- data.frame(Date=c('7-11-2024'," "," "),
+                     File=c('Lesson1'," "," "),
+                     Theme=c('Introduction to R'," "," "),
+                     Topics=c("Download & Install Software","Run Interactive Code",
+                              "Import Data From Spreadsheet")
+                     )
+
+#agenda <- read_excel(here('HPP-R-Course-Agenda.xlsx')) %>% select(-Resources,-Code) %>% #mutate(LessonDate=format(LessonDate,"%m-%d")) %>%
+#            replace(is.na(.),"")
+#knitr::kable(agenda) 
+knitr::kable(agenda)
 ```
 
 # Lessons

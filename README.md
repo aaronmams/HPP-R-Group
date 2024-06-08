@@ -1,7 +1,7 @@
 READ ME
 ================
 Aaron Mamula
-2023-06-28
+2024-06-08
 
 This is where you will find all the necessary information for the HPP R
 Tutorials.
@@ -12,10 +12,10 @@ Tutorials.
 <thead>
 <tr>
 <th style="text-align:left;">
-LessonDate
+Date
 </th>
 <th style="text-align:left;">
-File Name
+File
 </th>
 <th style="text-align:left;">
 Theme
@@ -23,27 +23,21 @@ Theme
 <th style="text-align:left;">
 Topics
 </th>
-<th style="text-align:left;">
-Data Files
-</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-07-13
+7-11-2024
 </td>
 <td style="text-align:left;">
-Lesson1-7-13-2023
+Lesson1-7-11-2024
 </td>
 <td style="text-align:left;">
 Introduction to R
 </td>
 <td style="text-align:left;">
-Download and Install
-</td>
-<td style="text-align:left;">
-SoquelCreek.csv
+Download & Install Software
 </td>
 </tr>
 <tr>
@@ -54,9 +48,7 @@ SoquelCreek.csv
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-Interactive Code
-</td>
-<td style="text-align:left;">
+Run Interactive Code
 </td>
 </tr>
 <tr>
@@ -67,98 +59,7 @@ Interactive Code
 <td style="text-align:left;">
 </td>
 <td style="text-align:left;">
-Import Data from Spreadsheet Applications
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-07-20
-</td>
-<td style="text-align:left;">
-Lesson2-7-20-2023
-</td>
-<td style="text-align:left;">
-Intro to Reproducable Research
-</td>
-<td style="text-align:left;">
-R Studio Projects
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Packages and Libraries
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-07-27
-</td>
-<td style="text-align:left;">
-Lesson3-7-27-2023
-</td>
-<td style="text-align:left;">
-Introductory Data Analysis
-</td>
-<td style="text-align:left;">
-Data Visualization
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-More Packages and Libraries
-</td>
-<td style="text-align:left;">
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-08-03
-</td>
-<td style="text-align:left;">
-Lesson4-8-4-2023
-</td>
-<td style="text-align:left;">
-Introductory Data Analysis 2
-</td>
-<td style="text-align:left;">
-joining data sets
-</td>
-<td style="text-align:left;">
-vessels.csv; boats.csv; county_pop.csv
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-08-10
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-Data Analysis Special Topic: Spatial Data Analysis
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
+Import Data From Spreadsheet
 </td>
 </tr>
 </tbody>
