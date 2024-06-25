@@ -11,30 +11,33 @@ library(here)
 
 # Purpose
 
-In Lesson 1 we kind of jumped right into *How to use R* without too much discussion of *Why would you want to?*. This Lesson gives an introduction to one of the resasons that R has become popular among data analysts and scientists: Reproducable Research.
+In Lesson 1 we kind of jumped right into *How to use R* without too much discussion of *Why would you want to?*. This Lesson gives an introduction to one of the reasons that R has become popular among data analysts and scientists: Reproducible Research.
 
-This lesson focuses on a single task that is an important element of Reproducable Research: constructing an R Script. 
+This lesson focuses on a single task that is an important element of Reproducible Research: constructing an R Script. 
+
+A "Script" is just a collection of code bundled together to do a thing (sometimes many things). 
 
 # Key Resources
 
 * [A Good Blog Post on Advantages of R over Excel](https://www.jumpingrivers.com/blog/comparing-r-excel-data-wrangling/)
-* 
+* [Step by Step Guide to Creating a Script](https://jayrobwilliams.com/files/pdf/teaching-materials/281%201-24_R_Scripts.pdf)
+* [Intro to Reproduceable Research for Medical Researchers](https://bookdown.org/pdr_higgins/rmrwr/introduction-to-reproducibility.html)
 
 # Make A Script
 
-This part will be much easier to demonstrated during class time but I'll do my best to provide a ste-by-step here. 
+This part will be much easier to demonstrated during class time but I'll do my best to provide a step-by-step here. 
 
 ## Step 1: Open a Script
 
 > File --> New File --> R Script
 
-```{r out.width="75%", fig.cap="Step 1: Open a Script."}
+```{r out.width="75%", fig.cap="Step 1: Open a Script.",echo=F}
 knitr::include_graphics(here("figures/make-a-script-Step1.png"))
 
 ```
 After you execute this action you'll see a blank scripting window in your R Studio console. If you are using the base-R GUI this will look slightly different.
 
-```{r out.width="75%", fig.cap="Step 1 Result"}
+```{r out.width="75%", fig.cap="Step 1 Result",echo=F}
 
 knitr::include_graphics(here("figures/make-a-script-Step2.png"))
 ```
@@ -53,10 +56,13 @@ names(soquel_data) <- c("Source","SiteID","Date","Level")
 
 # change the "Date" to a date class object
 soquel_data$Date <- as.Date(soquel_data$Date,format="%m/%d/%Y")
-str(soquel_data)
+
+# plot the data
+plot(soquel_data$Date,soquel_data$Level,type="l")
+
 ```
 
-```{r out.width="75%",fig.cap="Step 2: Populate the Script}
+```{r out.width="75%",fig.cap="Step 2: Populate the Script",echo=F}
 
 knitr::include_graphics(here("figures/make-a-script-Step3.png"))
 ```
@@ -65,7 +71,7 @@ knitr::include_graphics(here("figures/make-a-script-Step3.png"))
 
 There are a number of ways to run your script. The "Run" icon highlighted in the image below will execute the script line-by-line. Alternatively, once can highlight a selection of code and use either the the "Run" icon or a keyboard shortcut to execute the highlighted lines. 
 
-```{r out.width="75%",fig.cap="Step 3: Execute the Script"}
+```{r out.width="75%",fig.cap="Step 3: Execute the Script",echo=F}
 
 knitr::include_graphics(here("figures/make-a-script-Step4.png"))
 

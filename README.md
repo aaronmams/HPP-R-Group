@@ -6,6 +6,16 @@ Aaron Mamula
 This is where you will find all the necessary information for the HPP R
 Tutorials.
 
+# Purpose
+
+The purpose of this short course is to help you develop the skills
+necessary to independently conduct simple data analysis in R. My hope
+for this course is that, after six lessons, you will be able to
+
+- identify a dataset you would like to work with
+- import those data into an R workspace
+- write a simple script to extract some insight from your data
+
 # Agenda
 
 <table>
@@ -31,7 +41,7 @@ Topics
 7-11-2024
 </td>
 <td style="text-align:left;">
-Lesson1-7-11-2024
+Lesson1
 </td>
 <td style="text-align:left;">
 Introduction to R
