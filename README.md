@@ -10,7 +10,7 @@ Tutorials.
 
 The purpose of this short course is to help you develop the skills
 necessary to independently conduct simple data analysis in R. My hope
-for this course is that, after six lessons, you will be able to
+for this course is that, after five lessons, you will be able to
 
 - identify a dataset you would like to work with
 - import those data into an R workspace
@@ -41,7 +41,7 @@ Topics
 7-11-2024
 </td>
 <td style="text-align:left;">
-Lesson1
+Lesson1.html
 </td>
 <td style="text-align:left;">
 Introduction to R
@@ -72,6 +72,73 @@ Run Interactive Code
 Import Data From Spreadsheet
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+7-18-2024
+</td>
+<td style="text-align:left;">
+Lesson2.html
+</td>
+<td style="text-align:left;">
+Intro to RepRes
+</td>
+<td style="text-align:left;">
+Scripting
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+7-25-2024
+</td>
+<td style="text-align:left;">
+Lesson3.html
+</td>
+<td style="text-align:left;">
+Data Visualization
+</td>
+<td style="text-align:left;">
+Plots and Charts
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+External Libraries
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8-1-2024
+</td>
+<td style="text-align:left;">
+Lesson4.html
+</td>
+<td style="text-align:left;">
+Data Wrangling
+</td>
+<td style="text-align:left;">
+Joins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8-8-2024
+</td>
+<td style="text-align:left;">
+Lesson5.html
+</td>
+<td style="text-align:left;">
+To Be Determined
+</td>
+<td style="text-align:left;">
+To Be Determined
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -87,7 +154,7 @@ lessons.
 The table above shows which `.html` files correspond to each meeting.
 For example, the
 
-[Lesson1-7-13-2023.html](https://github.com/aaronmams/HPP-R-Group-2023/blob/master/Lessons/Lesson1-7-13-2023.html)
+[Lesson1.html](https://github.com/aaronmams/HPP-R-Group/tree/master/Lessons)
 
 file, contains the material that will be discussed in the first meeting
 on 7-13-2023.
