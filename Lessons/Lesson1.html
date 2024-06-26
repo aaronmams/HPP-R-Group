@@ -384,8 +384,8 @@ output</li>
 <p>contain R code. I recommend you copy these bits of code and paste
 them into your R console to see what they are doing.</p>
 </div>
-<div id="problem" class="section level1">
-<h1>Problem</h1>
+<div id="problem" class="section level1 tabset">
+<h1 class="tabset">Problem</h1>
 <p>We’re going to consider the toy problem of summarizing different
 flavors of hydrologic data on river flows.</p>
 <div id="problem-iteration-1" class="section level2">
@@ -653,7 +653,7 @@ function that tells you what R’s current working directory is:</p>
 <p>Now that we know where the file we want is, and we know what
 directory R wants to look for files in, we can bring our
 <code>SoquelCreek.csv</code> data into the workspace:</p>
-<pre class="r"><code>soquel &lt;- read.csv(file=&quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data/SoquelCreek.csv&quot;)</code></pre>
+<pre class="r"><code>soquel &lt;- read.csv(file=&quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group/Data/SoquelCreek.csv&quot;)</code></pre>
 </div>
 <div id="step-3-explore-the-data" class="section level3">
 <h3>Step 3: Explore the Data</h3>
@@ -692,9 +692,8 @@ rows of our rectangular data frame.</p>
 ## 6   USGS   11160000 6/25/1990           3.2</code></pre>
 </div>
 </div>
-</div>
-<div id="more-on-working-directories" class="section level1">
-<h1>More on Working Directories</h1>
+<div id="more-on-working-directories" class="section level2">
+<h2>More on Working Directories</h2>
 <p>You may have noticed that in Step #1 above I went through an example
 of printing the current working directory. You may have also noticed
 that the information in that example was not utilized when we actually
@@ -706,7 +705,7 @@ things because it strengthens your understanding of how the system
 behaves.</p>
 <p>In Step #2 above I imported the Soquel Creek Data by using an
 absolute file path:</p>
-<pre class="r"><code>soquel &lt;- read.csv(file=&quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data/SoquelCreek.csv&quot;)</code></pre>
+<pre class="r"><code>soquel &lt;- read.csv(file=&quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group/Data/SoquelCreek.csv&quot;)</code></pre>
 <p>I did this because R’s working directory:</p>
 <pre class="r"><code>getwd()</code></pre>
 <pre><code>## [1] &quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group/Lessons&quot;</code></pre>
@@ -714,7 +713,7 @@ absolute file path:</p>
 <code>C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data</code>.</p>
 <p>An alternative way to do this would be to change R’s working
 directory to be the directory where the file is stored:</p>
-<pre class="r"><code>setwd(&quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data&quot;)
+<pre class="r"><code>setwd(&quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group/Data&quot;)
 soquel2 &lt;- read.csv(&quot;SoquelCreek.csv&quot;)
 str(soquel2)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    12054 obs. of  4 variables:
@@ -726,31 +725,6 @@ str(soquel2)</code></pre>
 <code>read.csv()</code> function and just give it the file name…instead
 of the entire file path.</p>
 </div>
-<div id="make-a-script" class="section level1">
-<h1>Make A Script</h1>
-<p>This part will have to be demonstrated during class time or maybe
-office hours but I can narrate the basics here.</p>
-<p>We’re going to copy the code below to a text file and save it.</p>
-<pre class="r"><code>setwd(&quot;C:/Users/aaron.mamula/Desktop/R-Projects/HPP-R-Group-2023/Data&quot;)
-soquel_data &lt;- read.csv(&quot;SoquelCreek.csv&quot;)
-
-# fix the column names
-names(soquel_data) &lt;- c(&quot;Source&quot;,&quot;SiteID&quot;,&quot;Date&quot;,&quot;Level&quot;)
-
-# change the &quot;Date&quot; to a date class object
-soquel_data$Date &lt;- as.Date(soquel_data$Date,format=&quot;%m/%d/%Y&quot;)
-str(soquel_data)</code></pre>
-<p>The reason for doing things this way is to make any analysis we might
-do with these data reproducible. Reproducability is important for two
-reasons:</p>
-<ol style="list-style-type: decimal">
-<li><p>It ensures that we have internal consistency in our own analysis.
-Stated more simply, it gives me a way to track all the changes I might
-make to the data in a way that spreadsheets can’t.</p></li>
-<li><p>It makes it easy for us to share data and analysis with other
-people because they can easy retrace all the steps we’ve taken to arrive
-at our results.</p></li>
-</ol>
 </div>
 
 

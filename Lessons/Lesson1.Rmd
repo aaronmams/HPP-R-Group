@@ -31,7 +31,7 @@ the stuff in here is code
 contain R code. I recommend you copy these bits of code and paste them into your R console to see what they are doing.
 
 
-# Problem
+# Problem {.tabset}
 
 We're going to consider the toy problem of summarizing different flavors of hydrologic data on river flows. 
 
@@ -288,9 +288,9 @@ A function for summarizing data frames that I often find a bit more useful than 
 head(soquel)
 ```
 
-# More on Working Directories
+## More on Working Directories
 
-You may have noticed that in Step #1 above I went through an example of printing the current working directory. You may have also noticed that the information in that example was not utilized when we actually brought the external data into the R workspace. Here I'll show you an alternative way to bring external data into your R workspace. 
+You may have noticed that in Problem Iteration #3 I went through an example of printing the current working directory. You may have also noticed that the information in that example was not utilized when we actually brought the external data into the R workspace. Here I'll show you an alternative way to bring external data into your R workspace. 
 
 Although it is not strictly necessary to have multiple ways to do the same thing, I think it is helpful to understand multiple ways to do things because it strengthens your understanding of how the system behaves.
 
