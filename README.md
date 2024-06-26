@@ -38,6 +38,20 @@ Topics
 <tbody>
 <tr>
 <td style="text-align:left;">
+Pre Course
+</td>
+<td style="text-align:left;">
+Lesson0-Installation.html
+</td>
+<td style="text-align:left;">
+Software Download
+</td>
+<td style="text-align:left;">
+Download & Install Software
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 7-11-2024
 </td>
 <td style="text-align:left;">
@@ -47,7 +61,7 @@ Lesson1.html
 Introduction to R
 </td>
 <td style="text-align:left;">
-Download & Install Software
+Download & Install Cont.
 </td>
 </tr>
 <tr>

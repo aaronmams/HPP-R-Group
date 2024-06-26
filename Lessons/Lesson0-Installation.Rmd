@@ -1,0 +1,48 @@
+---
+title: "R Setup Instructions"
+author: "Aaron Mamula"
+date: "2024-06-25"
+output: html_document
+---
+
+
+# Objective
+
+This pre-course lesson has two primary objectives:
+
+1. provide instructions for installing the R software on your computer
+2. provide instructions for installing the R Studio application on your computer.
+
+If you plan on participating in the HPP R Group it is important that you attempt to install the R software and R Studio application before Thursday, July 11th. 
+
+# Resources
+
+1. [The url where you will find links to download R](https://cran.r-project.org/)
+2. [The url where you will find links to download R Studio](https://posit.co/download/rstudio-desktop/) - note: for your convenience, the R Studio url has a link to the R download page as well as a link to download R Studio.  
+3. [A comprehensive guide to downloading and installing R and R Studio](https://rstudio-education.github.io/hopr/starting.html)
+4. [YouTube video on downloading and installing R and R Studio for Macs](https://www.youtube.com/watch?v=RZBBmkKQ_s4)
+5. [YouTube video on downloading and installing R and R Studio for Windows](https://www.youtube.com/watch?v=H9EBlFDGG4k)
+
+# Common Roadblocks
+
+1. By far the most common roadblock to successful installation of R among past HPP students is the need for administrative access. This may apply to any students using a govenment issued computer. If receiving a warning/error message stating that you do not have permissions to download or install applications from the internet, the only solution will be to submit an IT Help Desk request. This will need to be done through your line office probably with some help from your HPP mentor. This process can take a couple days so the sooner you try to install the R software, the sooner you will know if this potential roadblock applies to you, and you will have some time to address it before the course starts.
+
+2. Other installation problems are far less common and generally most efficiently dealt with on a 1:1 basis. If you attempt to install R and run into problems just connect with me:
+
+aaron.mamula@noaa.gov
+
+and I can set up a video meeting for us to troubleshoot.
+
+# FAQs
+
+1. What's the difference between R and R Studio?
+
+R is programming language. R Studio is an application that helps you communicate with your computer using the language of R.
+
+2. Do I really need to install R Studio?
+
+Technically, no. One can use the R programming language without R Studio. Practically speaking, I will use R Studio to develop R code for this class so I think it will be very advantageous for you to use it as well.
+
+
+
+

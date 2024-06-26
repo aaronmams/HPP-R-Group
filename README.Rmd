@@ -27,18 +27,18 @@ library(kableExtra)
 
 
 ```{r echo=F}
-agenda <- data.frame(Date=c('7-11-2024'," "," ",
+agenda <- data.frame(Date=c('Pre Course','7-11-2024'," "," ",
                             "7-18-2024","7-25-2024","",
                             "8-1-2024",
                             "8-8-2024"),
-                     File=c("Lesson1.html"," "," ","
+                     File=c("Lesson0-Installation.html","Lesson1.html"," "," ","
                             Lesson2.html",
                             "Lesson3.html","",
                             "Lesson4.html",
                             "Lesson5.html"),
-                     Theme=c('Introduction to R'," "," ","Intro to RepRes","Data Visualization","","Data Wrangling",
+                     Theme=c("Software Download",'Introduction to R'," "," ","Intro to RepRes","Data Visualization","","Data Wrangling",
                              "To Be Determined"),
-                     Topics=c("Download & Install Software","Run Interactive Code",
+                     Topics=c("Download & Install Software", "Download & Install Cont.","Run Interactive Code",
                               "Import Data From Spreadsheet","Scripting","Plots and Charts","External Libraries","Joins",
                               "To Be Determined")
                      )
