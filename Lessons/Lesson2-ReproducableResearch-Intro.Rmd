@@ -5,7 +5,7 @@ date: "2024-06-08"
 output: html_document
 ---
 
-```{r}
+```{r echo=F, message=F}
 library(here)
 ```
 
