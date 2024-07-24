@@ -33,7 +33,7 @@ install.packages("ggplot2")
 
 Next, make sure the package is available in your current workspace:
   
-```{r}
+```{r warning=F, message=F}
 require(ggplot2)
 require(here)
 require(dplyr)
@@ -41,9 +41,9 @@ require(dplyr)
 
 Next, make sure you have the Soquel Creek Flow Data. You will need to download these data from the GitHub Repository and store locally somewhere on your computer. If you need a refresher on how to do this:
 
-* go to [https://github.com/aaronmams/HPP-R-Group-2023](https://github.com/aaronmams/HPP-R-Group-2023)
+* go to [https://github.com/aaronmams/HPP-R-Group](https://github.com/aaronmams/HPP-R-Group)
 * navigate to the "Data" subdirectory
-* click on the [SoquelCreek.csv](https://github.com/aaronmams/HPP-R-Group-2023/blob/master/Data/SoquelCreek.csv) file
+* click on the [SoquelCreek.csv](https://github.com/aaronmams/HPP-R-Group/blob/master/Data/SoquelCreek.csv) file
 * use the icon in the upper right hand side of the preview panel to download the file
 * take the file from your computer's "Downloads" directory over to a directory where you can access it.
 
