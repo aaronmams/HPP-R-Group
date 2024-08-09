@@ -11,7 +11,7 @@ library(dplyr)
 
 ```
 
-This lessons covers how to join different data sets in R. An important disclaimer is that this will not be a very general discussion of how to join dataframes in R. I will be using the [dplyr package](https://dplyr.tidyverse.org/) and `dplyr` syntax to do all of the joins. I can offer two arguments for it's worth focusing this lesson on the `dplyr` way of doing joins:
+This lesson covers how to join different data sets in R. An important disclaimer is that this will not be a very general discussion of how to join dataframes in R. I will be using the [dplyr package](https://dplyr.tidyverse.org/) and `dplyr` syntax to do all of the joins. I can offer two arguments for it's worth focusing this lesson on the `dplyr` way of doing joins:
 
 1. the `dplyr` syntax is quite intuitive, making it easy to understand. And once you understand the mechanics of what joins are doing, it's reasonably easy to explore other syntactic ways of doing them.
 2. `dplyr` is a very popular data wrangling package and, IMHO, it is worth investing some time in developing fluency with this package.
